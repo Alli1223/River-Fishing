@@ -48,6 +48,8 @@ public:
 	int setTileWidth(int width) { return atlasTileWidth = width; }
 
 	SDL_Rect& getRect() { return dstrect; }
+
+	int index = 0;
 private:
 	//! The width of tile sets
 	int atlasTileWidth = 16;

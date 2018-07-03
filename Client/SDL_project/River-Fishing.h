@@ -28,13 +28,13 @@
 /*!
 This is the main class where the game is laoded and run. 
 */
-class MagicCafe
+class RiverFishing
 {
 public:
 	//! A constructor
-	MagicCafe();
+	RiverFishing();
 	//! A deconstructor
-	~MagicCafe();
+	~RiverFishing();
 
 	//! Main Run loop
 	void run();

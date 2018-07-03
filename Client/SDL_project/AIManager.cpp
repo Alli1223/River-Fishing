@@ -24,6 +24,13 @@ void AIManager::Update(SDL_Renderer* renderer, Camera& camera)
 	}
 }
 
+void AIManager::CreateFish()
+{
+	Fish fish;
+	fish.setSize(50, 50);
+	//fish.setPosition(Level::level.cellsInWindowWidth)
+	
+}
 void AIManager::CreateNPC()
 {
 	NPC newNPC;
@@ -37,7 +44,7 @@ void AIManager::CreateNPC()
 	newNPC.PlayerClothes.leg = NPC::Clothing::LegWear(rand() % 3);
 
 	newNPC.setPosition(rand() % 100, rand() % 200);
-	newNPC.Move(Point(rand() % 100, rand() % 100));
+	//newNPC.Move(Point(rand() % 100, rand() % 100));
 	NPCs.push_back(newNPC);
 
 }

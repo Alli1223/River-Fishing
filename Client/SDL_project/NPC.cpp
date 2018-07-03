@@ -14,5 +14,5 @@ NPC::~NPC()
 void NPC::Move(Level& level, Point point)
 {
 	pathFinder.findPath(level, this->getCharacterPointLocation(), point);
-	this->
+
 }

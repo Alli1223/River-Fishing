@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MagicCafe.h"
+#include "River-Fishing.h"
 #include "InitialisationError.h"
 void showErrorMessage(const char* message, const char* title)
 {
@@ -9,7 +9,7 @@ void showErrorMessage(const char* message, const char* title)
 
 
 
-MagicCafe::MagicCafe() : backgroundTexture("Resources\\background5.jpg"), mousePointer("Resources\\Sprites\\Cursor\\cursor.png")
+RiverFishing::RiverFishing() : backgroundTexture("Resources\\background5.jpg"), mousePointer("Resources\\Sprites\\Cursor\\cursor.png")
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0 || SDL_Init(SDL_INIT_TIMER | SDL_INIT_JOYSTICK) < 0)
 	{
@@ -60,7 +60,7 @@ MagicCafe::MagicCafe() : backgroundTexture("Resources\\background5.jpg"), mouseP
 	}
 }
 
-MagicCafe::~MagicCafe()
+RiverFishing::~RiverFishing()
 {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
@@ -68,25 +68,22 @@ MagicCafe::~MagicCafe()
 }
 
 
-void MagicCafe::run()
+void RiverFishing::run()
 {
 	terrainGen.setSeed(321);
-	level.setCellsInWindowSize(gameSettings.WINDOW_WIDTH / level.getCellSize(), gameSettings.WINDOW_HEIGHT / level.getCellSize());
-	level.CreateLevel(0, 0);
+	Level::level.setCellsInWindowSize(gameSettings.WINDOW_WIDTH / Level::level.getCellSize(), gameSettings.WINDOW_HEIGHT / Level::level.getCellSize());
+	Level::level.CreateLevel(0, 0);
 
 	// Run the main menu
 Menu:
 	if (gameSettings.mainMenu)
 	{
 		Menu menu;
-		menu.MainMenu(gameSettings, level, camera, player, renderer);
+		menu.MainMenu(gameSettings, Level::level, camera, player, renderer);
 		menu.~menu();
 	}
 
-	// Generates the world around the camera position
-
-
-	int cellSize = level.getCellSize();
+	int cellSize = Level::level.getCellSize();
 	
 
 	// Create a unique playername
@@ -96,7 +93,7 @@ Menu:
 	player.setID(playerName);
 	player.setX(0);
 	player.setY(0); 
-	player.setSize(level.getCellSize());
+	player.setSize(Level::level.getCellSize());
 	player.setPosition(1000, 1000);
 
 	UI.toolbar.createToolbar(player, gameSettings);
@@ -151,8 +148,8 @@ Menu:
 	/////////////////////////////////////////////// MAIN LOOP ///////////////////////////////////////
 	while (gameSettings.running)
 	{
-		player.setSize(level.getCellSize());
-		level.setCellsInWindowSize(gameSettings.WINDOW_WIDTH / level.getCellSize(), gameSettings.WINDOW_HEIGHT / level.getCellSize());
+		player.setSize(Level::level.getCellSize());
+		Level::level.setCellsInWindowSize(gameSettings.WINDOW_WIDTH / Level::level.getCellSize(), gameSettings.WINDOW_HEIGHT / Level::level.getCellSize());
 		// Get mouse Position
 		SDL_GetMouseState(&mouseX, &mouseY);
 		//gameSettings.getScreenResolution();
@@ -163,8 +160,8 @@ Menu:
 		gameSettings.elapsedTime = SDL_GetTicks();
 
 		
-		gameSettings.mouseCellPos.x = mouseX / level.getCellSize() + camera.getX() / level.getCellSize();
-		gameSettings.mouseCellPos.y = mouseY / level.getCellSize() + camera.getY() / level.getCellSize();
+		gameSettings.mouseCellPos.x = mouseX / Level::level.getCellSize() + camera.getX() / Level::level.getCellSize();
+		gameSettings.mouseCellPos.y = mouseY / Level::level.getCellSize() + camera.getY() / Level::level.getCellSize();
 
 
 		if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_RIGHT))
@@ -174,7 +171,7 @@ Menu:
 		}
 
 		// Handle the input
-		input.HandleUserInput(renderer, level, player, camera, gameSettings, UI.toolbar, UI);
+		input.HandleUserInput(renderer, Level::level, player, camera, gameSettings, UI.toolbar, UI);
 		
 		
 		//Player pos for camera lerp
@@ -190,18 +187,18 @@ Menu:
 		SDL_RenderClear(renderer);
 
 		// Update the position of the player
-		player.Update(level);
+		player.Update(Level::level);
 		AImanager.Update(renderer, camera);
 
 		// Renders all the cells and players
-		rendering.RenderObjects(level, renderer, camera, player, gameSettings, allPlayers);
+		rendering.RenderObjects(Level::level, renderer, camera, player, gameSettings, allPlayers);
 
 		// Render all the UI
 		UI.Render(renderer, player, gameSettings);
 
 
 		if(player.pathFinder.Path.size() > 0)
-			player.pathFinder.drawPath(player.pathFinder.Path, renderer, camera, level);
+			player.pathFinder.drawPath(player.pathFinder.Path, renderer, camera, Level::level);
 
 		
 		if (gameSettings.displayMouse)
@@ -220,7 +217,7 @@ Menu:
 
 	// Save player settings when the game ends the game loop
 	if (gameSettings.saveLevelOnExit && !gameSettings.useNetworking)
-		gameSettings.saveLevelData(level);
+		gameSettings.saveLevelData(Level::level);
 	if (gameSettings.savePlayerOnExit)
 		gameSettings.savePlayerSettings(player);
 	if (gameSettings.restartGame)

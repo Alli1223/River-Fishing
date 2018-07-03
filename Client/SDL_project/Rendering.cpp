@@ -252,13 +252,13 @@ void Rendering::RenderLevel(Level& level, Camera& camera, GameSettings& gameSett
 		newPos.x = 0;
 	if (newPos.y < 0)
 		newPos.y = 0;
-	if (newPos.x + level.cellsInWindowWidth >= level.tiles.size())
-		newPos.x = level.tiles.size() - level.cellsInWindowWidth;
-	if (newPos.y + level.cellsInWindowHeight >= level.tiles[0].size())
-		newPos.y = level.tiles[0].size() - level.cellsInWindowHeight;
+	if (newPos.x + level.cellsInWindow.x >= level.tiles.size())
+		newPos.x = level.tiles.size() - level.cellsInWindow.x;
+	if (newPos.y + level.cellsInWindow.y >= level.tiles[0].size())
+		newPos.y = level.tiles[0].size() - level.cellsInWindow.y;
 
-	for (int x = newPos.x; x < newPos.x + level.cellsInWindowWidth + 1; x++)
-		for (int y = newPos.y; y < newPos.y + level.cellsInWindowHeight + 1; y++)
+	for (int x = newPos.x; x < newPos.x + level.cellsInWindow.x + 1; x++)
+		for (int y = newPos.y; y < newPos.y + level.cellsInWindow.y + 1; y++)
 		{
 			newX = level.tiles[x][y]->getX();
 			newY = level.tiles[x][y]->getY();

@@ -162,11 +162,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AIManager.h" />
+    <ClInclude Include="Animal.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cell.h" />
+    <ClInclude Include="Fish.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Rendering.h" />
@@ -199,7 +202,7 @@
     <ClInclude Include="SimplexNoise.h" />
     <ClInclude Include="TextUI.h" />
     <ClInclude Include="Timer.h" />
-    <ClInclude Include="MagicCafe.h" />
+    <ClInclude Include="River-Fishing.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
@@ -208,11 +211,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AIManager.cpp" />
+    <ClCompile Include="Animal.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cell.cpp" />
+    <ClCompile Include="Fish.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Rendering.cpp" />
@@ -244,7 +250,7 @@
     <ClCompile Include="SimplexNoise.cpp" />
     <ClCompile Include="TextUI.cpp" />
     <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="MagicCafe.cpp" />
+    <ClCompile Include="River-Fishing.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

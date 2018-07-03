@@ -73,9 +73,6 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Source Files\Core\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="MagicCafe.cpp">
-      <Filter>Source Files\Main Game Classes</Filter>
-    </ClCompile>
     <ClCompile Include="InGameMenu.cpp">
       <Filter>Source Files\Core\GUI</Filter>
     </ClCompile>
@@ -127,6 +124,12 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files\Core\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="River-Fishing.cpp">
+      <Filter>Source Files\Main Game Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Fish.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Animal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cell.h">
@@ -207,9 +210,6 @@
     <ClInclude Include="Timer.h">
       <Filter>Headers\Core\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="MagicCafe.h">
-      <Filter>Headers\Main Game Classes</Filter>
-    </ClInclude>
     <ClInclude Include="Menu.h">
       <Filter>Headers\Core\GUI</Filter>
     </ClInclude>
@@ -261,6 +261,12 @@
     <ClInclude Include="AIManager.h">
       <Filter>Headers\Main Game Classes\AI</Filter>
     </ClInclude>
+    <ClInclude Include="River-Fishing.h">
+      <Filter>Headers\Main Game Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Fish.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Animal.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SDL_project.rc" />

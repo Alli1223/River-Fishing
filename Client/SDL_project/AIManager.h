@@ -1,5 +1,6 @@
 #pragma once
 #include "NPC.h"
+#include "Fish.h"
 class AIManager
 {
 public:
@@ -13,9 +14,11 @@ public:
 
 
 
+
 private:
 	//! Void Create NPC
 	void CreateNPC();
+	void CreateFish();
 
 	std::vector<NPC> NPCs;
 };

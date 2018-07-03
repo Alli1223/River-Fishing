@@ -1,9 +1,11 @@
 #include "stdafx.h"
 #include "Level.h"
 
+// Instantiate static level
+Level Level::level;
+
 Level::Level()
 {
-
 }
 
 
@@ -17,21 +19,31 @@ Level::~Level()
 void Level::CreateLevel(int x, int y)
 {
 
-	for (int x = 0; x < defaultLevelSize; x++)
+	for (int x = 0; x < Level::defaultLevelSize; x++)
 	{
 		std::vector<std::shared_ptr<Cell>> column;
 
-		tiles.push_back(column);
-		for (int y = 0; y < defaultLevelSize; y++)
+		Level::tiles.push_back(column);
+		for (int y = 0; y < Level::defaultLevelSize; y++)
 		{
 			// Populates the column with pointers to cells
 			Cell cell(x, y);
 
-			cell.isWalkable = true;
-			cell.isGrass = true;
+			// Create the river
+			if (x > (Level::cellsInWindow.x / 2) - 5 && x < (Level::cellsInWindow.x / 2) + 5)
+			{
+				cell.isWater = true;
+				cell.isWalkable = false;
+			}
+			else
+			{
+				cell.isGrass = true;
+				cell.isWalkable = true;
+			}
 
 			auto sharedCell = std::make_shared<Cell>(cell);
-			tiles[x].push_back(sharedCell);
+			Level::tiles[x].push_back(sharedCell);
 		}
 	}
+	
 }

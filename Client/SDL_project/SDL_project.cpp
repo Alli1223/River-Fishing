@@ -3,17 +3,17 @@
 
 #include "stdafx.h"
 #include "SDL_project.h"
-#include "MagicCafe.h"
+#include "River-Fishing.h"
 
 int main(int argc, char* args[])
 
 {
 	
-	MagicCafe game;
+	RiverFishing game;
 	game.run();
 	while (game.needsRestart)
 	{
-		MagicCafe game;
+		RiverFishing game;
 		game.run();
 	}
 	return 0;

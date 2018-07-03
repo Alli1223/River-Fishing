@@ -20,6 +20,8 @@ public:
 	//! A deconstructor 
 	~Level();
 
+	static Level level;
+
 	void Level::CreateLevel(int x, int y);
 	
 	//! The base grid that contains the cells
@@ -28,8 +30,8 @@ public:
 
 	int getCellSize() { return cellSize; }
 	int setCellSize(int newCellSize) { return cellSize = newCellSize; }
-	int setCellsInWindowSize(int xVal, int yVal) { return cellsInWindowWidth = xVal, cellsInWindowHeight = yVal; }
-	int cellsInWindowWidth = 0, cellsInWindowHeight = 0;
+	int setCellsInWindowSize(int xVal, int yVal) { return cellsInWindow.x = xVal, cellsInWindow.y = yVal; }
+	glm::ivec2 cellsInWindow;
 protected:
 	
 	int levelWidth, levelHeight;
