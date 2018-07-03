@@ -16,11 +16,14 @@ void AIManager::Update(SDL_Renderer* renderer, Camera& camera)
 {
 	if (NPCs.size() < 10)
 	{
-		CreateNPC();
+		CreateFish();
 	}
 	for (int i = 0; i < NPCs.size(); i++)
 	{
-		NPCs[i].RenderPlayer(renderer, camera);
+		//NPCs[i].setPosition(NPCs[i].getPosition() -= camera.getPosition());
+		NPCs[i].render(renderer);
+		NPCs[i].setY(NPCs[i].getY() + 1);
+		
 	}
 }
 
@@ -28,7 +31,9 @@ void AIManager::CreateFish()
 {
 	Fish fish;
 	fish.setSize(50, 50);
-	//fish.setPosition(Level::level.cellsInWindowWidth)
+	fish.setPosition((Level::level.cellsInWindow.x / 2) * Level::level.getCellSize(), -10);
+	fish.index = 50;
+	NPCs.push_back(fish);
 	
 }
 void AIManager::CreateNPC()
@@ -45,6 +50,6 @@ void AIManager::CreateNPC()
 
 	newNPC.setPosition(rand() % 100, rand() % 200);
 	//newNPC.Move(Point(rand() % 100, rand() % 100));
-	NPCs.push_back(newNPC);
+	//NPCs.push_back(newNPC);
 
 }

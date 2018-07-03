@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include "Camera.h"
 
-
-
-
+// Create static objects
+Camera Camera::camera;
 
 Camera Camera::CameraControl;
 

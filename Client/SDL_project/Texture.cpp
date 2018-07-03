@@ -143,7 +143,7 @@ void Texture::renderLight(SDL_Renderer* renderer, int sourceX, int sourceY, int 
 
 void Texture::renderAtlas(SDL_Renderer* renderer, int index, int x, int y, int width, int height)
 {
-	SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_ADD);
+	//SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_ADD);
 	if (!texture)
 	{
 		texture = IMG_LoadTexture(renderer, fileName.c_str());

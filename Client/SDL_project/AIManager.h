@@ -1,6 +1,7 @@
 #pragma once
 #include "NPC.h"
 #include "Fish.h"
+#include "GameObject.h"
 class AIManager
 {
 public:
@@ -12,7 +13,7 @@ public:
 	//! Update the games AI
 	void Update(SDL_Renderer* renderer, Camera& camera);
 
-
+	
 
 
 private:
@@ -20,6 +21,6 @@ private:
 	void CreateNPC();
 	void CreateFish();
 
-	std::vector<NPC> NPCs;
+	std::vector<GameObject> NPCs;
 };
 

@@ -32,9 +32,9 @@ RiverFishing::RiverFishing() : backgroundTexture("Resources\\background5.jpg"), 
 	gameSettings.deltaTime = SDL_GetTicks();
 	
 
-	camera.WindowHeight = gameSettings.WINDOW_HEIGHT;
-	camera.WindowWidth = gameSettings.WINDOW_WIDTH;
-	camera.SetPos(0, 0);
+	Camera::camera.WindowHeight = gameSettings.WINDOW_HEIGHT;
+	Camera::camera.WindowWidth = gameSettings.WINDOW_WIDTH;
+	Camera::camera.SetPos(0, 0);
 	
 
 
@@ -79,7 +79,7 @@ Menu:
 	if (gameSettings.mainMenu)
 	{
 		Menu menu;
-		menu.MainMenu(gameSettings, Level::level, camera, player, renderer);
+		menu.MainMenu(gameSettings, Level::level, Camera::camera, player, renderer);
 		menu.~menu();
 	}
 
@@ -94,7 +94,7 @@ Menu:
 	player.setX(0);
 	player.setY(0); 
 	player.setSize(Level::level.getCellSize());
-	player.setPosition(1000, 1000);
+	player.setPosition(10, 10);
 
 	UI.toolbar.createToolbar(player, gameSettings);
 
@@ -160,8 +160,8 @@ Menu:
 		gameSettings.elapsedTime = SDL_GetTicks();
 
 		
-		gameSettings.mouseCellPos.x = mouseX / Level::level.getCellSize() + camera.getX() / Level::level.getCellSize();
-		gameSettings.mouseCellPos.y = mouseY / Level::level.getCellSize() + camera.getY() / Level::level.getCellSize();
+		gameSettings.mouseCellPos.x = mouseX / Level::level.getCellSize() + Camera::camera.getX() / Level::level.getCellSize();
+		gameSettings.mouseCellPos.y = mouseY / Level::level.getCellSize() + Camera::camera.getY() / Level::level.getCellSize();
 
 
 		if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_RIGHT))
@@ -171,16 +171,16 @@ Menu:
 		}
 
 		// Handle the input
-		input.HandleUserInput(renderer, Level::level, player, camera, gameSettings, UI.toolbar, UI);
+		input.HandleUserInput(renderer, Level::level, player, Camera::camera, gameSettings, UI.toolbar, UI);
 		
 		
 		//Player pos for camera lerp
 		glm::vec2 playerPos;
-		playerPos.x = player.getX() - camera.WindowWidth / 2;
-		playerPos.y = player.getY() - camera.WindowHeight / 2;
+		playerPos.x = player.getX() - Camera::camera.WindowWidth / 2;
+		playerPos.y = player.getY() - Camera::camera.WindowHeight / 2;
 
 
-		camera.Lerp_To(playerPos, camera.getCameraSpeed());
+		Camera::camera.Lerp_To(playerPos, Camera::camera.getCameraSpeed());
 
 		// Clear Rendering process:
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -188,17 +188,19 @@ Menu:
 
 		// Update the position of the player
 		player.Update(Level::level);
-		AImanager.Update(renderer, camera);
+		
 
 		// Renders all the cells and players
-		rendering.RenderObjects(Level::level, renderer, camera, player, gameSettings, allPlayers);
+		rendering.RenderObjects(Level::level, renderer, Camera::camera, player, gameSettings, allPlayers);
+
+		AImanager.Update(renderer, camera);
 
 		// Render all the UI
 		UI.Render(renderer, player, gameSettings);
 
 
 		if(player.pathFinder.Path.size() > 0)
-			player.pathFinder.drawPath(player.pathFinder.Path, renderer, camera, Level::level);
+			player.pathFinder.drawPath(player.pathFinder.Path, renderer, Camera::camera, Level::level);
 
 		
 		if (gameSettings.displayMouse)

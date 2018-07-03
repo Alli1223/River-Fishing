@@ -470,7 +470,8 @@ void Rendering::RenderObjects(Level& level, SDL_Renderer* renderer, Camera& came
 	{
 		RenderBuilding(level.buildings[0], camera, gameSettings, player, renderer);
 	}
-
+	//! The index of where the sprite is in the atlas
+	int index;
 	// Batch render all the textures
 	for each(auto &texture in allTextures)
 	{
@@ -525,7 +526,7 @@ void Rendering::RenderObjects(Level& level, SDL_Renderer* renderer, Camera& came
 	}
 
 
-	hungerBarTexture.render(renderer, (gameSettings.mouseCellPos.x * level.getCellSize()) - (camera.getX() + level.getCellSize()) + level.getCellSize() * 1.5, (gameSettings.mouseCellPos.y  * level.getCellSize()) - (camera.getY() - level.getCellSize()) - level.getCellSize() / 2, level.getCellSize(), level.getCellSize());
+	//hungerBarTexture.render(renderer, (gameSettings.mouseCellPos.x * level.getCellSize()) - (camera.getX() + level.getCellSize()) + level.getCellSize() * 1.5, (gameSettings.mouseCellPos.y  * level.getCellSize()) - (camera.getY() - level.getCellSize()) - level.getCellSize() / 2, level.getCellSize(), level.getCellSize());
 	//light.renderLight(renderer, 0,0, player.getX()  - camera.getX(), player.getY()  - camera.getY() , level.getCellSize() * 10 + (sin(SDL_GetTicks() / 1000.0) * 50.0), level.getCellSize() * 10 + (sin(SDL_GetTicks() / 1000.0) * 50.0));
 
 	

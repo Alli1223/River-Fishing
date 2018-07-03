@@ -2,11 +2,13 @@
 class Camera
 {
 public:
+	static Camera camera;
+
 	//! Constructor
 	Camera();
 	//! Destructor
 	~Camera();
-
+	
 	//! Camera Mode
 	enum {
 		TARGET_MODE_NORMAL = 0,
@@ -39,7 +41,7 @@ public:
 	//! Lerp to target
 	void Camera::Lerp_To(glm::vec2 target, float increment);
 
-	glm::vec2 getPosition() { return { X, Y }; }
+	glm::ivec2 getPosition() { return { X, Y }; }
 
 	static Camera CameraControl;
 
@@ -47,17 +49,10 @@ private:
 	int X;
 	int Y;
 
-	
-
 	float cameraSpeed = 0.25;
 
 	int* TargetX;
 	int* TargetY;
-
-	
-
-
-
 
 };
 
