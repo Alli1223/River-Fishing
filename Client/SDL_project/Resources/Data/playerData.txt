@@ -1,0 +1,1 @@
+{"PlayerData":{"X":492.099914550781,"Y":303.099731445313,"bodyColour":{"b":189,"g":224,"r":255},"bodyWear":0,"earType":0,"eyeColour":{"b":255,"g":255,"r":255},"eyeType":0,"gender":0,"hairColour":{"b":255,"g":255,"r":255},"headWear":0,"isMoving":false,"legColour":{"b":255,"g":255,"r":255},"legWear":0,"name":"1029","rotation":270,"upperClothesColour":{"b":255,"g":255,"r":255}}}
