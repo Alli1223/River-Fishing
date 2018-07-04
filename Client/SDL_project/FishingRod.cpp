@@ -28,4 +28,5 @@ void FishingRod::CastLine(int playerRotation)
 			startCast = false;
 		rotation - 5;
 	}
+
 }

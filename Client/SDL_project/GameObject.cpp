@@ -21,6 +21,7 @@ GameObject::~GameObject()
 
 void GameObject::render(SDL_Renderer* renderer)
 {
+	this->objectTexture.alterTransparency(transparency);
 	switch (objectTexture.atlasType)
 	{
 	case Texture::TextureType::AtlasBorder16px:
@@ -29,7 +30,7 @@ void GameObject::render(SDL_Renderer* renderer)
 		this->objectTexture.renderAtlas(renderer,index, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY(), this->getWidth(), this->getHeight());
 		break;
 	case Texture::TextureType::Sprite:
-		this->objectTexture.alterTransparency(50);
+		
 		this->objectTexture.render(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY(), this->getWidth(), this->getHeight());
 		break;
 	default:

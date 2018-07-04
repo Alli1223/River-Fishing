@@ -258,202 +258,204 @@ void Rendering::RenderLevel(Level& level, Camera& camera, GameSettings& gameSett
 	if (cameraPos.y + level.cellsInWindow.y >= level.tiles[0].size())
 		cameraPos.y = level.tiles[0].size() - level.cellsInWindow.y;
 
-	for (int x = cameraPos.x + 1; x < cameraPos.x + level.cellsInWindow.x; x++)
+	
+	for (int x = cameraPos.x; x < cameraPos.x + level.cellsInWindow.x +1; x++)
 		for (int y = cameraPos.y; y < cameraPos.y + level.cellsInWindow.y; y++)
 		{
+			if (cameraPos.y + level.cellsInWindow.y + 1 < level.tiles.size())
+			
+				newX = level.tiles[x][y]->getX();
+				newY = level.tiles[x][y]->getY();
 
-			newX = level.tiles[x][y]->getX();
-			newY = level.tiles[x][y]->getY();
+				if (newX > 4000000 || newX < 0)
+					newX = 0;
+				if (newY > 4000000 || newY < 0)
+					newY = 0;
+				xPos = newX * cellSize + cellSize / 2;
+				yPos = newY * cellSize + cellSize / 2;
 
-			if (newX > 4000000 || newX < 0)
-				newX = 0;
-			if (newY > 4000000 || newY < 0)
-				newY = 0;
-			xPos = newX * cellSize + cellSize / 2;
-			yPos = newY * cellSize + cellSize / 2;
-
-			xPos -= camera.getX();
-			yPos -= camera.getY();
-
-
-
+				xPos -= camera.getX();
+				yPos -= camera.getY();
 
 
-			if (level.tiles[x][y]->isWater)
-			{
-				// Code for ripples
-				//sin(sqrt(pow(level.tiles[x][y]->getX(),2) + pow(level.tiles[x][y]->getY(),2)) + SDL_GetTicks() / 500) > 0)
-				if (sin(level.tiles[x][y]->getX() + SDL_GetTicks() / 500) > 0)
-					AddToBatchRendering(waterID, xPos, yPos, cellSize, seaLevel);
-				else
-					AddToBatchRendering(water2ID, xPos, yPos, cellSize, seaLevel);
 
-				switch (level.tiles[x][y]->orientation)
+
+
+				if (level.tiles[x][y]->isWater)
 				{
-				case Cell::orientation::topLeft:
-					AddToBatchRendering(waterTopLeft, xPos, yPos, cellSize, ground);
-					break;
-				case Cell::orientation::topMiddle:
-					AddToBatchRendering(waterTopMiddle, xPos, yPos, cellSize, ground);
-					break;
-				case Cell::orientation::topRight:
-					AddToBatchRendering(waterTopRight, xPos, yPos, cellSize, ground);
-					break;
-				case Cell::orientation::middleLeft:
-					AddToBatchRendering(waterMiddleLeft, xPos, yPos, cellSize, ground);
-					break;
-				case Cell::orientation::middle:
-					AddToBatchRendering(waterMiddle, xPos, yPos, cellSize, ground);
-					break;
-				case Cell::orientation::middleRight:
-					AddToBatchRendering(waterMiddleRight, xPos, yPos, cellSize, ground);
-					break;
-				case Cell::orientation::bottomLeft:
-					AddToBatchRendering(waterBottomLeft, xPos, yPos, cellSize, ground);
-					break;
-				case Cell::orientation::bottomMiddle:
-					AddToBatchRendering(waterBottomMiddle, xPos, yPos, cellSize, ground);
-					break;
-				case Cell::orientation::bottomRight:
-					AddToBatchRendering(waterBottomRight, xPos, yPos, cellSize, ground);
-					break;
+					// Code for ripples
+					//sin(sqrt(pow(level.tiles[x][y]->getX(),2) + pow(level.tiles[x][y]->getY(),2)) + SDL_GetTicks() / 500) > 0)
+					if (sin(level.tiles[x][y]->getX() + SDL_GetTicks() / 500) > 0)
+						AddToBatchRendering(waterID, xPos, yPos, cellSize, seaLevel);
+					else
+						AddToBatchRendering(water2ID, xPos, yPos, cellSize, seaLevel);
+
+					switch (level.tiles[x][y]->orientation)
+					{
+					case Cell::orientation::topLeft:
+						AddToBatchRendering(waterTopLeft, xPos, yPos, cellSize, ground);
+						break;
+					case Cell::orientation::topMiddle:
+						AddToBatchRendering(waterTopMiddle, xPos, yPos, cellSize, ground);
+						break;
+					case Cell::orientation::topRight:
+						AddToBatchRendering(waterTopRight, xPos, yPos, cellSize, ground);
+						break;
+					case Cell::orientation::middleLeft:
+						AddToBatchRendering(waterMiddleLeft, xPos, yPos, cellSize, ground);
+						break;
+					case Cell::orientation::middle:
+						AddToBatchRendering(waterMiddle, xPos, yPos, cellSize, ground);
+						break;
+					case Cell::orientation::middleRight:
+						AddToBatchRendering(waterMiddleRight, xPos, yPos, cellSize, ground);
+						break;
+					case Cell::orientation::bottomLeft:
+						AddToBatchRendering(waterBottomLeft, xPos, yPos, cellSize, ground);
+						break;
+					case Cell::orientation::bottomMiddle:
+						AddToBatchRendering(waterBottomMiddle, xPos, yPos, cellSize, ground);
+						break;
+					case Cell::orientation::bottomRight:
+						AddToBatchRendering(waterBottomRight, xPos, yPos, cellSize, ground);
+						break;
+					}
 				}
-			}
 
-			// Base Ground Textures rendered in decending order (Top layered textures at bottom of list)
-			if (level.tiles[x][y]->isGrass)
-				AddToBatchRendering(grassID, xPos, yPos, cellSize, ground);
-			if (level.tiles[x][y]->isSand)
-				AddToBatchRendering(sandID, xPos, yPos, cellSize, ground);
+				// Base Ground Textures rendered in decending order (Top layered textures at bottom of list)
+				if (level.tiles[x][y]->isGrass)
+					AddToBatchRendering(grassID, xPos, yPos, cellSize, ground);
+				if (level.tiles[x][y]->isSand)
+					AddToBatchRendering(sandID, xPos, yPos, cellSize, ground);
 
-			if (level.tiles[x][y]->isDirt)
-				AddToBatchRendering(dirtID, xPos, yPos, cellSize, ground);
-
-
-
-			if (level.tiles[x][y]->isStoneWall)
-				AddToBatchRendering(18, xPos, yPos, cellSize, onGround);
-			else if (level.tiles[x][y]->isFlower1)
-				AddToBatchRendering(blueFlower, xPos, yPos, cellSize, onGround);
-			else if (level.tiles[x][y]->isFlower2)
-				AddToBatchRendering(redFlower, xPos, yPos, cellSize, onGround);
-			else if (level.tiles[x][y]->isBerryPlant)
-				AddToBatchRendering(redBerryBush, xPos, yPos, cellSize, onGround);
-			else if (level.tiles[x][y]->isBush)
-				AddToBatchRendering(525, xPos, yPos, cellSize, onGround);
-			else if (level.tiles[x][y]->isLongGrass)
-				AddToBatchRendering(sandID, xPos, yPos, cellSize, onGround);
-			else if (level.tiles[x][y]->isLongGrass2)
-				AddToBatchRendering(sandID, xPos, yPos, cellSize, onGround);
-			else if (level.tiles[x][y]->isSnow)
-				AddToBatchRendering(sandID, xPos, yPos, cellSize, onGround);
-			else if (level.tiles[x][y]->isRock)
-				AddToBatchRendering(rockID, xPos, yPos, cellSize, onGround);
-			else if (level.tiles[x][y]->isWood)
-				AddToBatchRendering(longWood, xPos, yPos, cellSize, onGround);
-			else if (level.tiles[x][y]->isStone)
-				AddToBatchRendering(stoneID, xPos, yPos, cellSize, onGround);
+				if (level.tiles[x][y]->isDirt)
+					AddToBatchRendering(dirtID, xPos, yPos, cellSize, ground);
 
 
 
-			if (level.tiles[x][y]->isWheat)
-			{
-				// Update seeds
-				if (level.tiles[x][y]->plantTimer.getTicks() > gameSettings.plantGrowSpeed)
+				if (level.tiles[x][y]->isStoneWall)
+					AddToBatchRendering(18, xPos, yPos, cellSize, onGround);
+				else if (level.tiles[x][y]->isFlower1)
+					AddToBatchRendering(blueFlower, xPos, yPos, cellSize, onGround);
+				else if (level.tiles[x][y]->isFlower2)
+					AddToBatchRendering(redFlower, xPos, yPos, cellSize, onGround);
+				else if (level.tiles[x][y]->isBerryPlant)
+					AddToBatchRendering(redBerryBush, xPos, yPos, cellSize, onGround);
+				else if (level.tiles[x][y]->isBush)
+					AddToBatchRendering(525, xPos, yPos, cellSize, onGround);
+				else if (level.tiles[x][y]->isLongGrass)
+					AddToBatchRendering(sandID, xPos, yPos, cellSize, onGround);
+				else if (level.tiles[x][y]->isLongGrass2)
+					AddToBatchRendering(sandID, xPos, yPos, cellSize, onGround);
+				else if (level.tiles[x][y]->isSnow)
+					AddToBatchRendering(sandID, xPos, yPos, cellSize, onGround);
+				else if (level.tiles[x][y]->isRock)
+					AddToBatchRendering(rockID, xPos, yPos, cellSize, onGround);
+				else if (level.tiles[x][y]->isWood)
+					AddToBatchRendering(longWood, xPos, yPos, cellSize, onGround);
+				else if (level.tiles[x][y]->isStone)
+					AddToBatchRendering(stoneID, xPos, yPos, cellSize, onGround);
+
+
+
+				if (level.tiles[x][y]->isWheat)
 				{
+					// Update seeds
+					if (level.tiles[x][y]->plantTimer.getTicks() > gameSettings.plantGrowSpeed)
+					{
+						switch (level.tiles[x][y]->plantStage)
+						{
+						case Cell::PlantStage::PlantStageOne:
+							level.tiles[x][y]->plantStage = Cell::PlantStage::PlantStageTwo;
+							break;
+						case Cell::PlantStage::PlantStageTwo:
+							level.tiles[x][y]->plantStage = Cell::PlantStage::PlantStageThree;
+							break;
+						case Cell::PlantStage::PlantStageThree:
+							level.tiles[x][y]->plantStage = Cell::PlantStage::PlantStageFour;
+							break;
+						case Cell::PlantStage::PlantStageFour:
+							level.tiles[x][y]->plantStage = Cell::PlantStage::PlantStageFive;
+							break;
+						case Cell::PlantStage::PlantStageFive:
+							level.tiles[x][y]->plantStage = Cell::PlantStage::PlantStageSix;
+							break;
+						case Cell::PlantStage::PlantStageSix:
+							level.tiles[x][y]->plantStage = Cell::PlantStage::PlantStageSeven;
+							break;
+						case Cell::PlantStage::PlantStageSeven:
+							level.tiles[x][y]->plantStage = Cell::PlantStage::PlantStageSeven;
+							break;
+						}
+						level.tiles[x][y]->plantTimer.restart();
+					}
+
 					switch (level.tiles[x][y]->plantStage)
 					{
 					case Cell::PlantStage::PlantStageOne:
-						level.tiles[x][y]->plantStage = Cell::PlantStage::PlantStageTwo;
+						AddToBatchRendering(1, xPos, yPos, cellSize, isCrops);
 						break;
 					case Cell::PlantStage::PlantStageTwo:
-						level.tiles[x][y]->plantStage = Cell::PlantStage::PlantStageThree;
+						AddToBatchRendering(2, xPos, yPos, cellSize, isCrops);
 						break;
 					case Cell::PlantStage::PlantStageThree:
-						level.tiles[x][y]->plantStage = Cell::PlantStage::PlantStageFour;
+						AddToBatchRendering(3, xPos, yPos, cellSize, isCrops);
 						break;
 					case Cell::PlantStage::PlantStageFour:
-						level.tiles[x][y]->plantStage = Cell::PlantStage::PlantStageFive;
+						AddToBatchRendering(4, xPos, yPos, cellSize, isCrops);
 						break;
 					case Cell::PlantStage::PlantStageFive:
-						level.tiles[x][y]->plantStage = Cell::PlantStage::PlantStageSix;
+						AddToBatchRendering(5, xPos, yPos, cellSize, isCrops);
 						break;
 					case Cell::PlantStage::PlantStageSix:
-						level.tiles[x][y]->plantStage = Cell::PlantStage::PlantStageSeven;
+						AddToBatchRendering(6, xPos, yPos, cellSize, isCrops);
 						break;
 					case Cell::PlantStage::PlantStageSeven:
-						level.tiles[x][y]->plantStage = Cell::PlantStage::PlantStageSeven;
+						AddToBatchRendering(7, xPos, yPos, cellSize, isCrops);
 						break;
 					}
-					level.tiles[x][y]->plantTimer.restart();
 				}
 
-				switch (level.tiles[x][y]->plantStage)
+				if (level.tiles[x][y]->isTree)
 				{
-				case Cell::PlantStage::PlantStageOne:
-					AddToBatchRendering(1, xPos, yPos, cellSize, isCrops);
+					AddToBatchRendering(treeBottom, xPos, yPos, cellSize, onGround);
+					AddToBatchRendering(treeTop, xPos, yPos - cellSize, cellSize, abovePlayer);
+				}
+
+				switch (level.tiles[x][y]->groundType)
+				{
+				case Cell::GroundType::campFire:
 					break;
-				case Cell::PlantStage::PlantStageTwo:
-					AddToBatchRendering(2, xPos, yPos, cellSize, isCrops);
+				case Cell::GroundType::streetLight:
 					break;
-				case Cell::PlantStage::PlantStageThree:
-					AddToBatchRendering(3, xPos, yPos, cellSize, isCrops);
+				case Cell::GroundType::torch:
+					AddToBatchRendering(416, xPos, yPos, cellSize, abovePlayer);
 					break;
-				case Cell::PlantStage::PlantStageFour:
-					AddToBatchRendering(4, xPos, yPos, cellSize, isCrops);
-					break;
-				case Cell::PlantStage::PlantStageFive:
-					AddToBatchRendering(5, xPos, yPos, cellSize, isCrops);
-					break;
-				case Cell::PlantStage::PlantStageSix:
-					AddToBatchRendering(6, xPos, yPos, cellSize, isCrops);
-					break;
-				case Cell::PlantStage::PlantStageSeven:
-					AddToBatchRendering(7, xPos, yPos, cellSize, isCrops);
+
+				}
+
+
+				// Fences
+				if (level.tiles[x][y]->isWoodFence)
+				{
+					AddToBatchRendering(woodHalfFence, xPos, yPos, cellSize, onGround);
+
+				}
+				// Render object orientations
+				renderCellsAroundObject(renderer, level, x, y, xPos, yPos);
+
+				/*
+				switch (level.tiles[x][y]->building)
+				{
+				case Cell::Building::playerShop:
+					//level.buildings[0]->setPosition(xPos, yPos);
+					level.buildings[0]->setPosition(level.tiles[x][y]->getX() * cellSize, level.tiles[x][y]->getY() * cellSize);
+					level.buildings[0]->setEntrancePoint(level.buildings[0]->getX() - 80, level.buildings[0]->getY() + 100);
+					level.buildings[0]->isVisable = true;
 					break;
 				}
-			}
-
-			if (level.tiles[x][y]->isTree)
-			{
-				AddToBatchRendering(treeBottom, xPos, yPos, cellSize, onGround);
-				AddToBatchRendering(treeTop, xPos, yPos - cellSize, cellSize, abovePlayer);
-			}
-
-			switch (level.tiles[x][y]->groundType)
-			{
-			case Cell::GroundType::campFire:
-				break;
-			case Cell::GroundType::streetLight:
-				break;
-			case Cell::GroundType::torch:
-				AddToBatchRendering(416, xPos, yPos, cellSize, abovePlayer);
-				break;
-
-			}
-
-
-			// Fences
-			if (level.tiles[x][y]->isWoodFence)
-			{
-				AddToBatchRendering(woodHalfFence, xPos, yPos, cellSize, onGround);
-
-			}
-			// Render object orientations
-			renderCellsAroundObject(renderer, level, x, y, xPos, yPos);
-
-			/*
-			switch (level.tiles[x][y]->building)
-			{
-			case Cell::Building::playerShop:
-				//level.buildings[0]->setPosition(xPos, yPos);
-				level.buildings[0]->setPosition(level.tiles[x][y]->getX() * cellSize, level.tiles[x][y]->getY() * cellSize);
-				level.buildings[0]->setEntrancePoint(level.buildings[0]->getX() - 80, level.buildings[0]->getY() + 100);
-				level.buildings[0]->isVisable = true;
-				break;
-			}
-			*/
-
+				*/
+			
 		}
 }
 

@@ -34,6 +34,8 @@ public:
 	//! The index of where the sprite is in the atlas
 	int index;
 
+	int transparency;
+
 	Texture setTexture(Texture texture) { return objectTexture = texture; }
 	Texture getTexture() { return objectTexture; }
 

@@ -4,6 +4,8 @@
 // Static textures list
 std::map<std::string, Texture> ResourceManager::textures;
 
+std::string ResourceManager::fishTextureLocation = "Resources\\Sprites\\Animals\\Fish\\";
+
 ResourceManager::ResourceManager()
 {
 	ResourceManager::LoadTextureFromFile("Resources\\Sprites\\SpriteSheets\\Characters\\Alien.png", "fish");
