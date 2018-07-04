@@ -86,7 +86,7 @@ void Texture::renderRotation(SDL_Renderer* renderer, int x, int y, int width, in
 	dest.h = height;
 
 	if(verticalflip)
-		SDL_RenderCopyEx(renderer, texture, nullptr, &dest, angle, 0, SDL_FLIP_VERTICAL);
+		SDL_RenderCopyEx(renderer, texture, nullptr, &dest, angle, 0, SDL_FLIP_NONE);
 	else
 		SDL_RenderCopyEx(renderer, texture, nullptr, &dest, angle, 0, SDL_FLIP_HORIZONTAL);
 }

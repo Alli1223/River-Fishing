@@ -227,20 +227,20 @@ void UserInput::HandleUserInput(SDL_Renderer* renderer, Level& level, Player& pl
 	{
 		gameSettings.displayMouse = true;
 	}
+
+	// Update rod
+	player.fishingRod.setPlayerRotation(player.getTargetRotation());
+
+
+
+
+	//LEFT CLICK
 	if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
-		player.fishingRod.CastLine(player.getTargetRotation());
-		//for(int w = -1; w < 2; w++)
-			//for (int h = -1; h < 2; h++)
-			{
-
-				//level.tiles[gameSettings.mouseCellPos.x + w][gameSettings.mouseCellPos.y + h]->groundType = Cell::GroundType::torch;
-				//level.tiles[gameSettings.mouseCellPos.x + w][gameSettings.mouseCellPos.y + h]->isGrass = false;
-			}
-		//level.tiles[gameSettings.mouseCellPos.x][gameSettings.mouseCellPos.y]->groundType = Cell::GroundType::torch;
+		UseItemFromToolbar(renderer, toolbar, player, gameSettings);
 	}
 
-	// Pathfinding test
+	// RIGHT CLICK
 	if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_RIGHT))
 	{
 		//Point startPoint(player.getCellX(), player.getCellY());
@@ -349,199 +349,19 @@ void UserInput::ChangeCellsAroundPoint(Level& level, glm::vec2 point, int dist, 
 	*/
 }
 
-/*
-void UserInput::UseItemFromToolbar(int xPos, int yPos, ToolBar& toolbar, Player& player, Level& level, GameSettings& gameSettings, SDL_Renderer* renderer)
+
+void UserInput::UseItemFromToolbar(SDL_Renderer* renderer, ToolBar& toolbar, Player& player, GameSettings& gameSettings)
 {
-	// AXE
-	if (toolbar.getSelectedItem().type.Resource == Item::ItemType::isWOODAXE)
-	{
-		for (int x = -1; x <= 1; x++)
-			for (int y = -1; y <= 1; y++)
-			{
-				if (level.getCell(xPos + x, yPos + y)->isTree)
-				{
-					//dump celldata of where the player has changed the cell
-					level.getCell(xPos + x, yPos + y)->isTree = false;
-					level.getCell(xPos + x, yPos + y)->isDirt = true;
-					level.getCell(xPos + x, yPos + y)->isWalkable = true;
-					std::string seralisedData = level.getCell(xPos + x, yPos + y)->getCellData().dump();
-					std::cout << seralisedData << std::endl;
-
-
-
-					for (int i = 0; i < gameSettings.amountOfWoodInTrees; i++)
-					{
-						Item wood;
-						wood.type.Resource = Item::ItemType::isWOOD;
-						player.inventory.add(wood);
-					}
-				}
-			}
-	}
-	if (toolbar.getSelectedItem().type.Resource == Item::ItemType::isPICKAXE)
-	{
-		// Remove rock from ground
-		if (level.getCell(xPos, yPos)->isRock)
-		{
-			level.getCell(xPos, yPos)->isRock = false;
-			Item stone;
-			stone.type.Resource = Item::ItemType::isSTONE;
-			for (int i = 0; i < gameSettings.amountOfStoneInRocks; i++)
-				player.inventory.add(stone);
-
-		}
-		// Remove dirt with pickaxe
-		else if (level.getCell(xPos, yPos)->isDirt)
-		{
-			level.getCell(xPos, yPos)->isDirt = false;
-			level.getCell(xPos, yPos)->isGrass = true;
-		}
-	}
-	// HOE
-	if (toolbar.getSelectedItem().type.Resource == Item::ItemType::isHOE)
-	{
-		//level.getCell(xPos + x, yPos + y)->isTree = false;
-		if (level.getCell(xPos, yPos)->isDirt == false)
-		{
-			level.getCell(xPos, yPos)->isDirt = true;
-			//dump celldata of where the player has changed the cell
-			std::string seralisedData = level.getCell(xPos, yPos)->getCellData().dump();
-			std::cout << seralisedData << std::endl;
-
-		}
-	}
-	// SCYTHE
-	if (toolbar.getSelectedItem().type.Resource == Item::ItemType::isSCYTHE)
-	{
-		if (level.getCell(xPos, yPos)->isWheat)
-		{
-			if (level.getCell(xPos, yPos)->seedsStage == Cell::seedsGrowthStage::PlantStageSeven)
-			{
-				Item wheat;
-				wheat.type.Resource = Item::ItemType::isWHEAT;
-				player.inventory.add(wheat);
-			}
-			level.getCell(xPos, yPos)->isWheat = false;
-			level.getCell(xPos, yPos)->seedsStage = Cell::seedsGrowthStage::noPlant;
-			//dump celldata of where the player has changed the cell
-			std::string seralisedData = level.getCell(xPos, yPos)->getCellData().dump();
-			std::cout << seralisedData << std::endl;
-
-		}
-		else if (level.getCell(xPos, yPos)->isBush || level.getCell(xPos, yPos)->isBerryPlant)
-		{
-			level.getCell(xPos, yPos)->isBush = false;
-			level.getCell(xPos, yPos)->isBerryPlant = false;
-			Item seeds;
-			seeds.type.Resource = Item::ItemType::isSEEDS;
-			player.inventory.add(seeds);
-		}
-			
-		else if (level.getCell(xPos, yPos)->isFlower1)
-		{
-			level.getCell(xPos, yPos)->isFlower1 = false;
-			Item seeds;
-			seeds.type.Resource = Item::ItemType::isSEEDS;
-			player.inventory.add(seeds);
-		}
-			
-		else if (level.getCell(xPos, yPos)->isFlower2)
-			level.getCell(xPos, yPos)->isFlower2 = false;
-	}
-
-
-	// Wheat SEEDS
-	if (toolbar.getSelectedItem().type.Resource == Item::ItemType::isSEEDS)
-	{
-		if (level.getCell(xPos, yPos)->isDirt && !level.getCell(xPos, yPos)->isWheat)
-		{
-			player.inventory.remove(toolbar.getToolbarSelection());
-			level.getCell(xPos, yPos)->isWheat = true;
-			level.getCell(xPos, yPos)->seedsStage = Cell::seedsGrowthStage::PlantStageOne;
-			level.getCell(xPos, yPos)->plantTimer.start();
-			//dump celldata of where the player has changed the cell
-			std::string seralisedData = level.getCell(xPos, yPos)->getCellData().dump();
-			std::cout << seralisedData << std::endl;
-		}
-	}
-
+	
 	// FISHING ROD
 	if (toolbar.getSelectedItem().type.Resource == Item::ItemType::isFISHINGROD)
 	{
-		if (level.getCell(player.getCellX() + 2, player.getCellY())->isWater)
-		{
-			level.getCell(player.getCellX() + 2, player.getCellY())->isFishingBob = true;
-		}
+		player.fishingRod.CastLine();
 		
-		//if (level.getCell(player.getCellX() + 2, player.getCellY())->isWater)
-		//// Cast Line Right
-		//else if (level.getCell(player.getCellX() - 2, player.getCellY())->isWater)
-		//	// Cast Line Left
-		//else if (level.getCell(player.getCellX(), player.getCellY() - 2)->isWater)
-		//	// Cast line up
-		//else if (level.getCell(player.getCellX(), player.getCellY() + 2)->isWater)
-			// Cast line down
-			
 	}
+
+
+
+}
 	
-
-	// Place wood on ground
-	if (toolbar.getSelectedItem().type.Resource == Item::ItemType::isWOOD)
-	{
-		//PlaceItemTexture.render(renderer, gameSettings.mouseCellPos.x, gameSettings.mouseCellPos.y, level.getCellSize(), level.getCellSize());
-		if (level.getCell(xPos, yPos)->isWood == false)
-		{
-			level.getCell(xPos, yPos)->isWood = true;
-			
-			player.inventory.remove(toolbar.getToolbarSelection());
-			toolbar.removeToolbarItem(toolbar.getToolbarSelection());
-			std::string seralisedData = level.getCell(xPos, yPos)->getCellData().dump();
-			std::cout << seralisedData << std::endl;
-
-		}
-	}
-	// Place stone on ground
-	if (toolbar.getSelectedItem().type.Resource == Item::ItemType::isSTONE)
-	{
-		//PlaceItemTexture.render(renderer, gameSettings.mouseCellPos.x, gameSettings.mouseCellPos.y, level.getCellSize(), level.getCellSize());
-		if (level.getCell(xPos, yPos)->isStone == false)
-		{
-			level.getCell(xPos, yPos)->isStone = true;
-
-			player.inventory.remove(toolbar.getToolbarSelection());
-			toolbar.removeToolbarItem(toolbar.getToolbarSelection());
-			std::string seralisedData = level.getCell(xPos, yPos)->getCellData().dump();
-			std::cout << seralisedData << std::endl;
-
-		}
-	}
-	
-	if (toolbar.getSelectedItem().type.Resource == Item::ItemType::isSTONEWALL)
-	{
-		if (level.getCell(xPos, yPos)->isStoneWall == false)
-		{
-			level.getCell(xPos, yPos)->isStoneWall = true;
-			level.getCell(xPos, yPos)->isWalkable = false;
-			player.inventory.remove(toolbar.getToolbarSelection());
-			toolbar.removeToolbarItem(toolbar.getToolbarSelection());
-			std::string seralisedData = level.getCell(xPos, yPos)->getCellData().dump();
-			std::cout << seralisedData << std::endl;
-
-		}
-	}
-	if (toolbar.getSelectedItem().type.Resource == Item::ItemType::isWOODFENCE)
-	{
-		if (level.getCell(xPos, yPos)->isWoodFence == false)
-		{
-			level.getCell(xPos, yPos)->isWoodFence = true;
-			level.getCell(xPos, yPos)->isWalkable = false;
-			player.inventory.remove(toolbar.getToolbarSelection());
-			toolbar.removeToolbarItem(toolbar.getToolbarSelection());
-			std::string seralisedData = level.getCell(xPos, yPos)->getCellData().dump();
-			std::cout << seralisedData << std::endl;
-
-		}
-	}
-	}
-	*/
 	

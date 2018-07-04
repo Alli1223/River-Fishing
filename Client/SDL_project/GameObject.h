@@ -22,6 +22,7 @@ public:
 	glm::ivec2 getSize() { return size; }
 	glm::ivec2 setSize(glm::ivec2 newSize) { return size = newSize; }
 	int setSize(int width, int height) { return size.x = width, size.y = height; }
+	int setSize(int newSize) { return size.x = newSize, size.y = newSize; }
 	int getWidth() { return size.x; }
 	int getHeight() { return size.y; }
 
@@ -34,7 +35,7 @@ public:
 	//! The index of where the sprite is in the atlas
 	int index;
 
-	int transparency;
+	int transparency = 255;
 
 	Texture setTexture(Texture texture) { return objectTexture = texture; }
 	Texture getTexture() { return objectTexture; }
