@@ -94,7 +94,7 @@ Menu:
 	player.setX(0);
 	player.setY(0); 
 	player.setSize(Level::level.getCellSize());
-	player.setPosition(10, 10);
+	player.setPosition(500, 10);
 
 	UI.toolbar.createToolbar(player, gameSettings);
 
@@ -181,7 +181,7 @@ Menu:
 
 
 		Camera::camera.Lerp_To(playerPos, Camera::camera.getCameraSpeed());
-
+		
 		// Clear Rendering process:
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
@@ -197,6 +197,8 @@ Menu:
 		// Render all the UI
 		UI.Render(renderer, player, gameSettings);
 
+		player.Update(Level::level);
+
 
 		if(player.pathFinder.Path.size() > 0)
 			player.pathFinder.drawPath(player.pathFinder.Path, renderer, Camera::camera, Level::level);
@@ -209,7 +211,7 @@ Menu:
 		gameSettings.deltaTime = gameSettings.elapsedTime - gameSettings.lastFrameTimeElapsed;
 		gameSettings.lastFrameTimeElapsed = gameSettings.elapsedTime;
 		// Update the position of the player
-		player.Update(Level::level);
+		
 		// End while running
 	}
 

@@ -15,7 +15,7 @@ AIManager::~AIManager()
 
 void AIManager::Update(SDL_Renderer* renderer, Camera& camera)
 {
-	if (fishSpawnTimer.getTicks() > 5 && NPCs.size() < 5000)
+	if (fishSpawnTimer.getTicks() > 50 && NPCs.size() < 5000)
 	{
 			fishSpawnTimer.restart();
 			CreateFish();
