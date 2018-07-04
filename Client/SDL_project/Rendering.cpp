@@ -260,10 +260,9 @@ void Rendering::RenderLevel(Level& level, Camera& camera, GameSettings& gameSett
 
 	
 	for (int x = cameraPos.x; x < cameraPos.x + level.cellsInWindow.x +1; x++)
-		for (int y = cameraPos.y; y < cameraPos.y + level.cellsInWindow.y; y++)
+		for (int y = cameraPos.y; y < cameraPos.y + level.cellsInWindow.y + 1; y++)
 		{
-			if (cameraPos.y + level.cellsInWindow.y + 1 < level.tiles.size())
-			
+
 				newX = level.tiles[x][y]->getX();
 				newY = level.tiles[x][y]->getY();
 
@@ -488,10 +487,10 @@ void Rendering::RenderObjects(Level& level, SDL_Renderer* renderer, Camera& came
 			roguelikeAtlas.renderAtlas(renderer, texture.index, texture.x, texture.y, texture.width, texture.height);
 			break;
 		case onGround:
-			//roguelikeAtlas.renderAtlas(renderer, texture.index, texture.x, texture.y, texture.width, texture.height);
+			roguelikeAtlas.renderAtlas(renderer, texture.index, texture.x, texture.y, texture.width, texture.height);
 			break;
 		case isCrops:
-			//cropsAtlas.renderAtlas(renderer, texture.index, texture.x, texture.y, texture.width, texture.height);
+			cropsAtlas.renderAtlas(renderer, texture.index, texture.x, texture.y, texture.width, texture.height);
 			break;
 		}
 	}
@@ -524,7 +523,7 @@ void Rendering::RenderObjects(Level& level, SDL_Renderer* renderer, Camera& came
 		switch (texture.layer)
 		{
 		case abovePlayer:
-			//roguelikeAtlas.renderAtlas(renderer, texture.index, texture.x, texture.y, texture.width, texture.height);
+			roguelikeAtlas.renderAtlas(renderer, texture.index, texture.x, texture.y, texture.width, texture.height);
 			break;
 		}
 	}

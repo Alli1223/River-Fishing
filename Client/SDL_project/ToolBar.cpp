@@ -57,6 +57,11 @@ void ToolBar::UpdateAndRenderToolbar(SDL_Renderer* renderer, Player& player, Gam
 		selectionTexture.render(renderer, toolbarIcons[toolbarSelection]->getX(), toolbarIcons[toolbarSelection]->getY(), toolbarIcons[toolbarSelection]->getWidth(), toolbarIcons[toolbarSelection]->getHeight());
 }
 
+void ToolBar::useItem()
+{
+
+}
+
 void ToolBar::createToolbar(Player& player, GameSettings& gameSettings)
 {
 	int WW = gameSettings.WINDOW_WIDTH;

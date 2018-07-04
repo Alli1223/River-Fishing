@@ -5,7 +5,7 @@
 #include "Chunk.h"
 #include "point.h"
 #include "Camera.h"
-
+#include "Level.h"
 
 
 class ProceduralTerrain
@@ -31,14 +31,14 @@ public:
 	int setSeed(int newSeed) { return seed = newSeed; }
 
 	//! function that calls the functions below
-	void ProceduralTerrain::populateTerrain(std::shared_ptr<Chunk>& level);
+	void populateTerrain(std::vector<std::vector<std::shared_ptr<Cell>>> tiles);
 	//! Spawns the trees in a chunk
-	void ProceduralTerrain::spawnRandomTrees(std::shared_ptr<Chunk>& chunk);
+	void spawnRandomTrees();
 	//! Spawn the vegetation
-	void ProceduralTerrain::spawnRandomVegetation(std::shared_ptr<Chunk>& chunk);
+	void spawnRandomVegetation();
 	//! Generate the ground based of the elevation and climate
-	void ProceduralTerrain::generateGround(std::shared_ptr<Chunk>& chunk, int x, int y);
-	void ProceduralTerrain::GenerateCellOrientations(std::shared_ptr<Chunk>& chunk, int& x, int& y);
+	void generateGround();
+	void GenerateCellOrientations();
 
 private:
 	//! Seed values are random
@@ -62,8 +62,8 @@ private:
 	float forrestAmplifier = 1.5;
 
 	// Number of items randomly placed in chunk
-	int numberOfTrees = 2;
-	int numberOfPlants = 4;
+	int numberOfTrees = 100;
+	int numberOfPlants = 1000;
 
 };
 

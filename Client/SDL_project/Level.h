@@ -3,7 +3,6 @@
 #include "Chunk.h"
 #include "Point.h"
 #include "Camera.h"
-#include "ProceduralTerrain.h"
 #include "Building.h"
 #include "PlayerShop.h"
 
@@ -23,7 +22,7 @@ public:
 	static Level level;
 
 	void Level::CreateLevel(int x, int y);
-	
+
 	//! The base grid that contains the cells
 	std::vector<std::vector<std::shared_ptr<Cell>>> tiles;
 	std::vector<std::shared_ptr<Building>> buildings;
@@ -36,6 +35,6 @@ protected:
 	
 	int levelWidth, levelHeight;
 	int cellSize = 50;
-	int defaultLevelSize = 50;
+	int defaultLevelSize = 100;
 	PlayerShop shop;
 };

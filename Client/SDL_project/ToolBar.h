@@ -17,6 +17,8 @@ public:
 	//! Function that renders the toolbar
 	void ToolBar::UpdateAndRenderToolbar(SDL_Renderer* renderer, Player& player, GameSettings& gameSettings);
 
+	void useItem();
+
 	std::vector<std::shared_ptr<Icon>> toolbarIcons;
 
 	//! Remove item from toolbar

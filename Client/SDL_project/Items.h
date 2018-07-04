@@ -1,8 +1,8 @@
 #pragma once
 #include "Texture.h"
 #include "Level.h"
-
-class Item
+#include "GameObject.h"
+class Item : public GameObject
 {
 public:
 	//! Constructor

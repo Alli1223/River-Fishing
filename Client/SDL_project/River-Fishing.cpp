@@ -70,10 +70,10 @@ RiverFishing::~RiverFishing()
 
 void RiverFishing::run()
 {
-	terrainGen.setSeed(321);
+	terrainGen.setSeed(312);
 	Level::level.setCellsInWindowSize(gameSettings.WINDOW_WIDTH / Level::level.getCellSize(), gameSettings.WINDOW_HEIGHT / Level::level.getCellSize());
 	Level::level.CreateLevel(0, 0);
-
+	terrainGen.populateTerrain(Level::level.tiles);
 	// Run the main menu
 Menu:
 	if (gameSettings.mainMenu)

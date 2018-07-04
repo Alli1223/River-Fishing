@@ -2,9 +2,10 @@
 #include "Fish.h"
 
 
-Fish::Fish() : fishTexture("Resources\\Sprites\\Animals\\Fish\\fish1.png")
+Fish::Fish() : fishTexture(ResourceManager::fishTextureLocation + "fish1.png")
 {
-	speed = 3.0f;
+	speed =  rand() % 3 + 0.5f;
+	transparency = 50;
 	objectTexture = fishTexture;
 	objectTexture.atlasType = Texture::TextureType::Sprite;
 }

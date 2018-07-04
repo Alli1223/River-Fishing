@@ -85,6 +85,7 @@ void Player::Move(Level& level, Player::movementDirection direction)
 
 void Player::RenderPlayer(SDL_Renderer* renderer, Camera& camera)
 {
+	
 	if (isPlayerMoving())
 	{
 		walkHorizontalAnimation.OnAnimate();
@@ -180,6 +181,11 @@ void Player::RenderPlayer(SDL_Renderer* renderer, Camera& camera)
 			renderCharacterClothes(renderer, 0, pixelSize * 4, renderOffset.x, renderOffset.y, pixelSize, getSize(), false);
 		}
 	}
+
+	// Render fishing rod
+	fishingRod.setPosition(getPosition());
+	fishingRod.setSize(100, 100);
+	fishingRod.render(renderer);
 }
 
 void Player::renderCharacterBody(SDL_Renderer* renderer, int frameX, int frameY, int x, int y, int pixelSize, int characterSize, bool flipSprite)

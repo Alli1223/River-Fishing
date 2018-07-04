@@ -6,7 +6,7 @@ AIManager::AIManager()
 {
 	// Start the timer and create the fish pool
 	fishSpawnTimer.start();
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 30; i++)
 	{
 		CreateFish();
 	}

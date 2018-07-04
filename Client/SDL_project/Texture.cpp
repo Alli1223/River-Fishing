@@ -67,6 +67,29 @@ void Texture::renderRotation(SDL_Renderer* renderer, int x, int y, int width, in
 
 	SDL_RenderCopyEx(renderer, texture, nullptr, &dest, angle, 0, SDL_FLIP_NONE);
 }
+void Texture::renderRotation(SDL_Renderer* renderer, int x, int y, int width, int height, int angle, bool verticalflip)
+{
+
+	if (!texture)
+	{
+		texture = IMG_LoadTexture(renderer, fileName.c_str());
+		if (!texture)
+		{
+			throw InitialisationError("IMG_LoadTexture failed");
+		}
+	}
+
+	SDL_Rect dest;
+	dest.x = x - width / 2;
+	dest.y = y - height / 2;
+	dest.w = width;
+	dest.h = height;
+
+	if(verticalflip)
+		SDL_RenderCopyEx(renderer, texture, nullptr, &dest, angle, 0, SDL_FLIP_VERTICAL);
+	else
+		SDL_RenderCopyEx(renderer, texture, nullptr, &dest, angle, 0, SDL_FLIP_HORIZONTAL);
+}
 void Texture::renderAnim(SDL_Renderer* renderer, int sourceX, int sourceY, int destX, int destY, int pixelSize, int renderSize)
 {
 	if (!texture)

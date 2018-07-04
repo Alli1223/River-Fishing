@@ -229,6 +229,7 @@ void UserInput::HandleUserInput(SDL_Renderer* renderer, Level& level, Player& pl
 	}
 	if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
+		player.fishingRod.CastLine(player.getTargetRotation());
 		//for(int w = -1; w < 2; w++)
 			//for (int h = -1; h < 2; h++)
 			{

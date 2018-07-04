@@ -45,5 +45,7 @@ void Level::CreateLevel(int x, int y)
 			Level::tiles[x].push_back(sharedCell);
 		}
 	}
+
+	shop.setPosition(0, Level::cellsInWindow.x / 2);
 	
 }

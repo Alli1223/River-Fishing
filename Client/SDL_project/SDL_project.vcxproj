@@ -164,6 +164,7 @@
     <ClInclude Include="AIManager.h" />
     <ClInclude Include="Animal.h" />
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Bobber.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
@@ -215,6 +216,7 @@
     <ClCompile Include="AIManager.cpp" />
     <ClCompile Include="Animal.cpp" />
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Bobber.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
