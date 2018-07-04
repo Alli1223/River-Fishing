@@ -1,5 +1,6 @@
 #pragma once
 #include "Animal.h"
+
 class Fish : public Animal
 {
 public:
@@ -7,5 +8,8 @@ public:
 
 	~Fish();
 	Texture fishTexture;
+
+private:
+	
 };
 

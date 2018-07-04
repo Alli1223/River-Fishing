@@ -76,7 +76,7 @@ class Pathfinder
 {
 public:
 	//! Finds a path from point a to point b
-	std::vector<Point> findPath(Level& map, Point& start, Point& goal);
+	std::vector<Point> findPath(Level& map, glm::ivec2& startPoint, glm::ivec2& goalPoint);
 	//! Returns the path that has been found
 	std::vector<Point> reconstructPath(std::shared_ptr<Node> goalNode);
 	void Pathfinder::drawPath(std::vector<Point>& path, SDL_Renderer* renderer, Camera& camera, Level& level);

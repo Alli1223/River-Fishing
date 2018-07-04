@@ -131,6 +131,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Animal.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="FishingRod.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cell.h">
@@ -269,6 +270,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Animal.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="FishingRod.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SDL_project.rc" />

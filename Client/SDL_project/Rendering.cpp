@@ -245,21 +245,23 @@ void Rendering::RenderLevel(Level& level, Camera& camera, GameSettings& gameSett
 	int xPos = 0, yPos = 0;
 	int cellSize = level.getCellSize();
 
-	glm::vec2 newPos = { camera.getX(), camera.getY() };
-	newPos /= cellSize;
+	// get the camera position
+	glm::ivec2 cameraPos = { camera.getX(), camera.getY() };
+	cameraPos /= cellSize;
 
-	if (newPos.x < 0)
-		newPos.x = 0;
-	if (newPos.y < 0)
-		newPos.y = 0;
-	if (newPos.x + level.cellsInWindow.x >= level.tiles.size())
-		newPos.x = level.tiles.size() - level.cellsInWindow.x;
-	if (newPos.y + level.cellsInWindow.y >= level.tiles[0].size())
-		newPos.y = level.tiles[0].size() - level.cellsInWindow.y;
+	if (cameraPos.x < 0)
+		cameraPos.x = 0;
+	if (cameraPos.y < 0)
+		cameraPos.y = 0;
+	if (cameraPos.x + level.cellsInWindow.x >= level.tiles.size())
+		cameraPos.x = level.tiles.size() - level.cellsInWindow.x;
+	if (cameraPos.y + level.cellsInWindow.y >= level.tiles[0].size())
+		cameraPos.y = level.tiles[0].size() - level.cellsInWindow.y;
 
-	for (int x = newPos.x; x < newPos.x + level.cellsInWindow.x + 1; x++)
-		for (int y = newPos.y; y < newPos.y + level.cellsInWindow.y + 1; y++)
+	for (int x = cameraPos.x; x < cameraPos.x + level.cellsInWindow.x - 1; x++)
+		for (int y = cameraPos.y; y < cameraPos.y + level.cellsInWindow.y; y++)
 		{
+
 			newX = level.tiles[x][y]->getX();
 			newY = level.tiles[x][y]->getY();
 

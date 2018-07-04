@@ -20,7 +20,11 @@ private:
 	//! Void Create NPC
 	void CreateNPC();
 	void CreateFish();
+	int fishCounter = 0;
 
-	std::vector<GameObject> NPCs;
+	//! Fish spawn rate in ms
+	int fishSpawnRate = 1500;
+
+	std::vector<GameObject> AllGameObjects;
 };
 

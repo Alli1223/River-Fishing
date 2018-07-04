@@ -4,7 +4,12 @@
 
 AIManager::AIManager()
 {
+	// Start the timer and create the fish pool
 	fishSpawnTimer.start();
+	for (int i = 0; i < 3; i++)
+	{
+		CreateFish();
+	}
 }
 
 
@@ -15,27 +20,36 @@ AIManager::~AIManager()
 
 void AIManager::Update(SDL_Renderer* renderer, Camera& camera)
 {
-	if (fishSpawnTimer.getTicks() > 50 && NPCs.size() < 5000)
+	// Spawn fish
+	if (fishSpawnTimer.getTicks() > 500 && fishCounter < AllGameObjects.size())
 	{
-			fishSpawnTimer.restart();
-			CreateFish();
-		
+		fishSpawnTimer.restart();
+		AllGameObjects[fishCounter].setPosition(((Level::level.cellsInWindow.x - 5) / 2) * Level::level.getCellSize() + rand() % 300, -10);
+		fishCounter++;
 	}
+	for (auto &fish : AllGameObjects)
+	{
+		if (fish.getY() > Level::level.tiles[0].size() * Level::level.getCellSize())
+		{
+			fish.setY(-10);
+		}
+		fish.setY(fish.getY() + fish.getSpeed());
+		fish.render(renderer);
+	}
+	
 
-	for (auto &npc : NPCs)
-	{
-		npc.render(renderer);
-		npc.setY(npc.getY() + 1);
-	}
+
+
 }
 
 void AIManager::CreateFish()
 {
 	Fish fish;
-	fish.setSize(50, 50);
-	fish.setPosition(((Level::level.cellsInWindow.x - 5) / 2) * Level::level.getCellSize(), -10);
-	//fish.index = rand() % 500;
-	NPCs.push_back(fish);
+	int size = rand() % 50;
+	size += 25;
+	fish.setSize(size, size);
+	//fish.setPosition(((Level::level.cellsInWindow.x - 5) / 2) * Level::level.getCellSize(), -10);
+	AllGameObjects.push_back(fish);
 	
 }
 void AIManager::CreateNPC()

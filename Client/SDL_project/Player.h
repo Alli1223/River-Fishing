@@ -5,6 +5,7 @@
 #include "GUI.h"
 #include "InventoryUI.h"
 #include "CraftingUI.h"
+#include "FishingRod.h"
 class Player : public Character
 {
 public:
@@ -30,6 +31,9 @@ public:
 	Clothing PlayerClothes;
 	InventoryUI InventoryPanel;
 	CraftingUI craftingUI;
+
+	//! Fishing rod
+	FishingRod fishingRod;
 
 
 	Animation getWalkAnimation() { return walkHorizontalAnimation; }

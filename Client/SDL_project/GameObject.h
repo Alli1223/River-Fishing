@@ -11,19 +11,22 @@ public:
 	~GameObject();
 
 	// Get and Set positions
-	glm::ivec2 getPosition() { return position; }
-	glm::ivec2 setPosition(glm::ivec2 Position) { return position = Position; }
-	int setPosition(int x , int y) { return position.x = x, position.y = y; }
-	int getX() { return position.x; }
-	int getY() { return position.y; }
-	int setX(int X) { return position.x = X; }
-	int setY(int Y) { return position.y = Y; }
+	glm::vec2 getPosition() { return position; }
+	glm::vec2 setPosition(glm::vec2 Position) { return position = Position; }
+	float setPosition(float x , float y) { return position.x = x, position.y = y; }
+	float getX() { return position.x; }
+	float getY() { return position.y; }
+	float setX(float X) { return position.x = X; }
+	float setY(float Y) { return position.y = Y; }
 
 	glm::ivec2 getSize() { return size; }
 	glm::ivec2 setSize(glm::ivec2 newSize) { return size = newSize; }
 	int setSize(int width, int height) { return size.x = width, size.y = height; }
 	int getWidth() { return size.x; }
 	int getHeight() { return size.y; }
+
+	float getSpeed() { return speed; }
+	float setSpeed(float newSpeed) { speed = newSpeed; }
 
 	//! Render the object
 	void render(SDL_Renderer* renderer);
@@ -36,7 +39,7 @@ public:
 
 protected:
 	//! Position of the object
-	glm::ivec2 position;
+	glm::vec2 position;
 	//! Size of the object
 	glm::ivec2 size;
 	//! Speed the object can travel at

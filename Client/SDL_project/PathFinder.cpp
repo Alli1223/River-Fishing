@@ -108,10 +108,12 @@ std::shared_ptr<Node> Pathfinder::getOpenSetElementWithLowestScore()
 	return result;
 }
 
-std::vector<Point> Pathfinder::findPath(Level& level, Point& start, Point& goal)
+std::vector<Point> Pathfinder::findPath(Level& level, glm::ivec2& startPoint, glm::ivec2& goalPoint)
 {
 	// Clear all the node for fresh pathfind
 	nodes.clear();
+	Point start = Point(startPoint.x, startPoint.y);
+	Point goal = Point(goalPoint.x, goalPoint.y);
 
 	std::cout << "Computing Path" << std::endl;
 	std::cout << "First Pos: " << start.getX() << "," << start.getY() << " End: " << goal.getX() << "," << goal.getY() << std::endl;

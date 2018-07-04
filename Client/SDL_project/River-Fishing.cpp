@@ -72,7 +72,7 @@ void RiverFishing::run()
 {
 	terrainGen.setSeed(321);
 	Level::level.setCellsInWindowSize(gameSettings.WINDOW_WIDTH / Level::level.getCellSize(), gameSettings.WINDOW_HEIGHT / Level::level.getCellSize());
-	Level::level.CreateLevel(0, 0);
+	Level::level.CreateLevel(10, 10);
 
 	// Run the main menu
 Menu:
@@ -91,43 +91,18 @@ Menu:
 
 	player.characterType = "Player";
 	player.setID(playerName);
-	player.setX(0);
-	player.setY(0); 
 	player.setSize(Level::level.getCellSize());
-	player.setPosition(500, 10);
+	player.setPosition(1000, 1000);
 
 	UI.toolbar.createToolbar(player, gameSettings);
 
 	player.inventory.setCapacity(56);
+
 	// Add starting items
-	Item hoe;
-	hoe.type.Resource = Item::ItemType::isHOE;
-	Item WoodAxe;
-	WoodAxe.type.Resource = Item::ItemType::isWOODAXE;
-	Item PickAxe;
-	PickAxe.type.Resource = Item::ItemType::isPICKAXE;
-	Item Scythe;
-	Scythe.type.Resource = Item::ItemType::isSCYTHE;
-	Item seeds;
-	seeds.type.Resource = Item::ItemType::isSEEDS;
-	Item waterCan;
-	waterCan.type.Resource = Item::ItemType::isWATERINGCAN;
 	Item fishingPole;
 	fishingPole.type.Resource = Item::ItemType::isFISHINGROD;
-	Item wood;
-	wood.type.Resource = Item::ItemType::isWOOD;
-	Item stone;
-	stone.type.Resource = Item::ItemType::isSTONE;
+	player.inventory.add(fishingPole);
 
-
-	player.inventory.add(WoodAxe);
-	player.inventory.add(PickAxe);
-	player.inventory.add(hoe);
-	player.inventory.add(waterCan);
-	//player.inventory.add(fishingPole);
-	player.inventory.add(Scythe);
-	player.inventory.add(seeds);
-	player.inventory.add(wood);
 
 	player.InventoryPanel.setX(gameSettings.WINDOW_WIDTH / 2 + gameSettings.WINDOW_WIDTH / 4);
 	player.InventoryPanel.setY(gameSettings.WINDOW_HEIGHT / 2);
