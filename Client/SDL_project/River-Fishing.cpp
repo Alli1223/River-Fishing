@@ -186,8 +186,7 @@ Menu:
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
 
-		// Update the position of the player
-		player.Update(Level::level);
+		
 		
 
 		// Renders all the cells and players
@@ -209,6 +208,8 @@ Menu:
 
 		gameSettings.deltaTime = gameSettings.elapsedTime - gameSettings.lastFrameTimeElapsed;
 		gameSettings.lastFrameTimeElapsed = gameSettings.elapsedTime;
+		// Update the position of the player
+		player.Update(Level::level);
 		// End while running
 	}
 

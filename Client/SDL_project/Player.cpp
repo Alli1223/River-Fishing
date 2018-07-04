@@ -45,27 +45,35 @@ void Player::Move(Level& level, Player::movementDirection direction)
 	switch(direction)
 	{
 	case Player::movementDirection::right_down:
-		setPosition(getX() + getVelocity(), getY() + getVelocity());
+		if (Level::level.tiles[getCellX()][getCellY()]->isWalkable)
+			setPosition(getX() + getVelocity(), getY() + getVelocity());
 		break;
 	case Player::movementDirection::right_up:
+		if (Level::level.tiles[getCellX()][getCellY()]->isWalkable)
 		setPosition(getX() + getVelocity(), getY() - getVelocity());
 		break;
 	case Player::movementDirection::left_down:
+		if (Level::level.tiles[getCellX()][getCellY()]->isWalkable)
 		setPosition(getX() - getVelocity(), getY() + getVelocity());
 		break;
 	case Player::movementDirection::left_up:
+		if (Level::level.tiles[getCellX()][getCellY()]->isWalkable)
 		setPosition(getX() - getVelocity(), getY() - getVelocity());
 		break;
 	case Player::movementDirection::up:
+		if (Level::level.tiles[getCellX()][getCellY()]->isWalkable)
 		setPosition(getX(), getY() - getVelocity());
 		break;
 	case Player::movementDirection::down:
+		if (Level::level.tiles[getCellX()][getCellY()]->isWalkable)
 		setPosition(getX(), getY() + getVelocity());
 		break;
 	case Player::movementDirection::left:
+		if (Level::level.tiles[getCellX()][getCellY()]->isWalkable)
 		setPosition(getX() - getVelocity(), getY());
 		break;
 	case Player::movementDirection::right:
+		if (Level::level.tiles[getCellX()][getCellY()]->isWalkable)
 		setPosition(getX() + getVelocity(), getY());
 		break;
 	}

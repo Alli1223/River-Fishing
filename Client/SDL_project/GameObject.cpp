@@ -35,6 +35,4 @@ void GameObject::render(SDL_Renderer* renderer)
 		this->objectTexture.render(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY(), this->getWidth(), this->getHeight());
 		break;
 	}
-	
-
 }
