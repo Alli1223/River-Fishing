@@ -258,7 +258,7 @@ void Rendering::RenderLevel(Level& level, Camera& camera, GameSettings& gameSett
 	if (cameraPos.y + level.cellsInWindow.y >= level.tiles[0].size())
 		cameraPos.y = level.tiles[0].size() - level.cellsInWindow.y;
 
-	for (int x = cameraPos.x; x < cameraPos.x + level.cellsInWindow.x - 1; x++)
+	for (int x = cameraPos.x + 1; x < cameraPos.x + level.cellsInWindow.x; x++)
 		for (int y = cameraPos.y; y < cameraPos.y + level.cellsInWindow.y; y++)
 		{
 

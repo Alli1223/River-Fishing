@@ -36,6 +36,6 @@ protected:
 	
 	int levelWidth, levelHeight;
 	int cellSize = 50;
-	int defaultLevelSize = 10;
+	int defaultLevelSize = 50;
 	PlayerShop shop;
 };

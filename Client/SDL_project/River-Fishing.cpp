@@ -72,7 +72,7 @@ void RiverFishing::run()
 {
 	terrainGen.setSeed(321);
 	Level::level.setCellsInWindowSize(gameSettings.WINDOW_WIDTH / Level::level.getCellSize(), gameSettings.WINDOW_HEIGHT / Level::level.getCellSize());
-	Level::level.CreateLevel(10, 10);
+	Level::level.CreateLevel(0, 0);
 
 	// Run the main menu
 Menu:
