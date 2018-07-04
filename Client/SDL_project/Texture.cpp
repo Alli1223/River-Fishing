@@ -47,7 +47,6 @@ void Texture::render(SDL_Renderer* renderer, int x, int y, int width, int height
 }
 
 
-
 void Texture::renderRotation(SDL_Renderer* renderer, int x, int y, int width, int height, int angle)
 {
 

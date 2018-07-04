@@ -13,8 +13,8 @@ public:
 	//! Update the games AI
 	void Update(SDL_Renderer* renderer, Camera& camera);
 
-	
-
+	//! Timer start
+	Timer fishSpawnTimer;
 
 private:
 	//! Void Create NPC

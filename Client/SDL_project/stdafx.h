@@ -56,3 +56,5 @@
 // json parser
 #include "json.hpp"
 using json = nlohmann::json;
+
+#include "ResourceManager.h"

@@ -19,6 +19,16 @@ public:
 	//! Loads the texture
 	SDL_Texture* getTexture() { return texture; }
 	
+	std::string changeFileName(std::string newFileName) { return fileName = newFileName; };
+
+	enum TextureType
+	{
+		AtlasNoBorder128px,
+		AtlasBorder16px,
+		AtlasNoBorder32px,
+		Sprite,
+		Animation
+	} atlasType;
 
 	//! Renders the image in the window
 	void render(SDL_Renderer* renderer, int x, int y, int width, int height);
@@ -40,8 +50,6 @@ public:
 
 	//Set blending
 	void setBlendMode(SDL_BlendMode blending);
-	//! Set Atlas type -- Type 0 = 128px / no border -- Type 1 = 16bit / 1px border
-	char setAtlasType(char type) { return atlasType = type; }
 	//! Set Atlas tile size
 	int setTileSize(int size ) { return atlasTileSize = size; }
 	//! Set Atlas tile width number
@@ -55,8 +63,7 @@ private:
 	int atlasTileWidth = 16;
 	//! Atlas tile size
 	int atlasTileSize = 16;
-	//! Atlas type -- Type 0 = no border -- Type 1 = 1px border -- Type 2 = 32bit no border
-	char atlasType;
+
 	//! The image location
 	std::string fileName;
 	//! Pointer to the SDL Texture

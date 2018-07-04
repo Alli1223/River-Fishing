@@ -2,8 +2,11 @@
 #include "Fish.h"
 
 
-Fish::Fish()
+Fish::Fish() : fishTexture("Resources\\Sprites\\Cursor\\cursor.png")
 {
+	
+	objectTexture = fishTexture;
+	objectTexture.atlasType = Texture::TextureType::Sprite;
 }
 
 

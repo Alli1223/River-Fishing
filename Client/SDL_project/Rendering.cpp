@@ -20,15 +20,15 @@ Rendering::Rendering() :
 
 	summerAtlas.setTileSize(64);
 	summerAtlas.setTileWidth(6);
-	summerAtlas.setAtlasType(0);
+	summerAtlas.atlasType = Texture::TextureType::AtlasNoBorder128px;
 	// Set rogue atlas stats
 	roguelikeAtlas.setTileSize(16);
-	roguelikeAtlas.setAtlasType(1);
+	roguelikeAtlas.atlasType = Texture::TextureType::AtlasBorder16px;
 	roguelikeAtlas.setTileWidth(56);
 
 	cropsAtlas.setTileSize(32);
 	cropsAtlas.setTileWidth(8);
-	cropsAtlas.setAtlasType(0);
+	cropsAtlas.atlasType = Texture::TextureType::AtlasNoBorder128px;
 
 }
 

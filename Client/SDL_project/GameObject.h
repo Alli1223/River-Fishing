@@ -6,6 +6,7 @@ class GameObject
 public:
 	//! Constructor
 	GameObject();
+	GameObject(std::string file);
 	//! Destructor
 	~GameObject();
 
@@ -30,9 +31,10 @@ public:
 	//! The index of where the sprite is in the atlas
 	int index;
 
-	Texture& setTexture(Texture& texture) { return objectTexture = texture; }
+	Texture setTexture(Texture texture) { return objectTexture = texture; }
+	Texture getTexture() { return objectTexture; }
 
-private:
+protected:
 	//! Position of the object
 	glm::ivec2 position;
 	//! Size of the object
