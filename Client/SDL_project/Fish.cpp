@@ -14,3 +14,19 @@ Fish::Fish() : fishTexture(ResourceManager::fishTextureLocation + "fish1.png")
 Fish::~Fish()
 {
 }
+
+void Fish::render()
+{
+	switch (fishType)
+	{
+	default:
+		fishTexture.render(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY(), this->getWidth(), this->getHeight());
+		break;
+	case Fish::FishType::one:
+		break;
+	case Fish::FishType::one:
+		break;
+	case Fish::FishType::one:
+		break;
+	}
+}

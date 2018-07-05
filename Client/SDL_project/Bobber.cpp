@@ -4,6 +4,7 @@
 
 Bobber::Bobber() : BobberTexture(ResourceManager::fishTextureLocation + "bobber.png")
 {
+	
 	objectTexture.alterTransparency(150);
 	objectTexture = BobberTexture;
 	objectTexture.atlasType = Texture::TextureType::Sprite;
@@ -14,10 +15,21 @@ Bobber::Bobber() : BobberTexture(ResourceManager::fishTextureLocation + "bobber.
 Bobber::~Bobber()
 {
 }
-
+void Bobber::reset()
+{
+	setSize(0);
+	isBobbing = false;
+}
 void Bobber::render(SDL_Renderer* renderer)
 {
 
-	if(isBobbing)
-		this->BobberTexture.renderRotation(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY() + (sin(SDL_GetTicks() / 500.0f) * 2.0f), this->getWidth(), this->getHeight() , cos(SDL_GetTicks() / 500));
+	if (isBobbing)
+	{
+		// If the bobber is no longer on water
+		if (!Level::level.tiles[this->getX() / Level::level.getCellSize()][this->getY() / Level::level.getCellSize()]->isWater)
+		{
+			reset();
+		}
+		this->BobberTexture.renderRotation(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY() + (sin(SDL_GetTicks() / 500.0f) * 4.0f), this->getWidth(), this->getHeight(), cos(SDL_GetTicks() / 500));
+	}
 }

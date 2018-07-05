@@ -18,7 +18,7 @@ AIManager::~AIManager()
 }
 
 
-void AIManager::Update(SDL_Renderer* renderer, Camera& camera)
+void AIManager::Update(SDL_Renderer* renderer, Camera& camera, Player& player)
 {
 	// Spawn fish
 	if (fishSpawnTimer.getTicks() > 500 && fishCounter < AllGameObjects.size())
@@ -32,6 +32,10 @@ void AIManager::Update(SDL_Renderer* renderer, Camera& camera)
 		if (fish.getY() > Level::level.tiles[0].size() * Level::level.getCellSize())
 		{
 			fish.setY(-10);
+		}
+		if (fish.collidesWith(player.fishingRod.bobber))
+		{
+			std::cout << "Collision with fish" << std::endl;
 		}
 		fish.setY(fish.getY() + fish.getSpeed());
 		fish.render(renderer);

@@ -188,7 +188,7 @@ Menu:
 		// Renders all the cells and players
 		rendering.RenderObjects(Level::level, renderer, Camera::camera, player, gameSettings, allPlayers);
 
-		AImanager.Update(renderer, camera);
+		AImanager.Update(renderer, camera, player);
 
 		// Render all the UI
 		UI.Render(renderer, player, gameSettings);

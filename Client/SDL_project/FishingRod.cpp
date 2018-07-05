@@ -18,6 +18,7 @@ FishingRod::~FishingRod()
 
 void FishingRod::CastLine()
 {
+
 	startCast = true;
 
 	// If the player hsa started the cast then rotate
@@ -34,15 +35,17 @@ void FishingRod::CastLine()
 		}
 	}
 
-	if (waitingForFish)
+	// reel in the bobber
+	if (waitingForFish && rotation > -maxRotate / 2 && rotation < maxRotate / 2)
 	{
 		float lerp_x = bobber.getX() + (getX() - bobber.getX()) * 0.005f;
 		float lerp_y = bobber.getY() + (getY() - bobber.getY()) * 0.005f;
 
 		bobber.setX(lerp_x);
 		bobber.setY(lerp_y);
-		
+
 	}
+
 }
 
 void FishingRod::SpawnBobber()
@@ -76,17 +79,25 @@ void FishingRod::Stop()
 	casting = false;
 	waitingForFish = false;
 	bobber.isBobbing = false;
-	bobber.setPosition(0, 0);
+	bobber.setPosition(-100, -100);
+	rotation = 0;
 
 }
 
 void FishingRod::UpdateRod()
 {
+	// Close if pole is unequiped
+	if (!renderFishingRod)
+		Stop();
+
+	// Check if bobber has collided with pole
 	if (this->collidesWith(bobber))
 	{
 		std::cout << "COLLISION!" << std::endl;
 		Stop();
 	}
+
+	///CASTING
 	// Cast to the left
 	if (playerRotation == 90)
 	{
@@ -110,7 +121,7 @@ void FishingRod::UpdateRod()
 			SpawnBobber();
 		}
 	}
-
+	
 	// Cast to the right
 	if (playerRotation == 270)
 	{
@@ -142,7 +153,9 @@ void FishingRod::render(SDL_Renderer* renderer)
 {
 	if (renderFishingRod)
 	{
+		//Update the rod
 		UpdateRod();
+		//Draw the fishing line
 		if (casting)
 			SDL_RenderDrawLine(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY(), bobber.getX() - Camera::camera.getX(), bobber.getY() - Camera::camera.getY());
 

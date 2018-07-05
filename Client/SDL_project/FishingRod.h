@@ -35,7 +35,7 @@ private:
 
 	int castingSpeed = 7;
 
-	int castingDistance = 2;
+	int castingDistance = 3;
 
 	//! Rotation of rod until max
 	int maxRotate = 90;
