@@ -13,16 +13,16 @@ GameUI::~GameUI()
 }
 
 
-void GameUI::Render(SDL_Renderer* renderer, Player& player, GameSettings& gameSettings)
+void GameUI::Render(SDL_Renderer* renderer, Player& playerOne, GameSettings& gameSettings)
 {
 	// Renders inventory
-	player.InventoryPanel.RenderInventory(renderer, player.inventory);
+	playerOne.InventoryPanel.RenderInventory(renderer, playerOne.inventory);
 
 	// Render toolbar
-	toolbar.UpdateAndRenderToolbar(renderer, player, gameSettings);
+	toolbar.UpdateAndRenderToolbar(renderer, playerOne, gameSettings);
 
 	// Render Crafting
-	player.craftingUI.renderCraftingMenu(renderer, player.inventory);
+	playerOne.craftingUI.renderCraftingMenu(renderer, playerOne.inventory);
 
 	// Render game menu
 	if (gameSettings.inGameMenu)

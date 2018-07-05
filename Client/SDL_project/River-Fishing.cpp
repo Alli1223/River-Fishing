@@ -32,8 +32,8 @@ RiverFishing::RiverFishing() : backgroundTexture("Resources\\background5.jpg"), 
 	gameSettings.WINDOW_WIDTH;
 	if (!gameSettings.fullscreen)
 	{
-		gameSettings.WINDOW_HEIGHT /=2;
-		gameSettings.WINDOW_WIDTH /= 2;
+		gameSettings.WINDOW_HEIGHT;
+		gameSettings.WINDOW_WIDTH;
 	}
 	gameSettings.deltaTime = SDL_GetTicks();
 	
@@ -94,7 +94,7 @@ Menu:
 	if (gameSettings.mainMenu)
 	{
 		Menu menu;
-		menu.MainMenu(gameSettings, Level::level, Camera::camera, player, renderer);
+		menu.MainMenu(gameSettings, Level::level, Camera::camera, playerOne, renderer);
 		menu.~menu();
 	}
 
@@ -106,37 +106,46 @@ Menu:
 		printf("Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError());
 	}
 
-	// Create a unique playername
+	///Create players
+	// Create playerOne
 	std::string playerName = std::to_string(SDL_GetTicks());
+	playerOne.characterType = "Player";
+	playerOne.setID(playerName);
+	playerOne.setSize(Level::level.getCellSize() * 2);
+	playerOne.setPosition(gameSettings.WINDOW_WIDTH / 2 - 1500, gameSettings.WINDOW_HEIGHT / 2);
 
-	player.characterType = "Player";
-	player.setID(playerName);
-	player.setSize(Level::level.getCellSize() * 2);
-	player.setPosition(1000, 1000);
+	playerName = std::to_string(SDL_GetTicks() * 2.0f);
+	playerTwo.characterType = "Player";
+	playerTwo.setID(playerName);
+	playerTwo.setSize(Level::level.getCellSize() * 2);
+	playerTwo.setPosition(gameSettings.WINDOW_WIDTH / 2 + 500, gameSettings.WINDOW_HEIGHT / 2);
 
-	UI.toolbar.createToolbar(player, gameSettings);
+	//
 
-	player.inventory.setCapacity(56);
+	UI.toolbar.createToolbar(playerOne, gameSettings);
+
+	playerOne.inventory.setCapacity(56);
 
 	// Add starting items
 	Item fishingPole;
 	fishingPole.type.Resource = Item::ItemType::isFISHINGROD;
-	player.inventory.add(fishingPole);
+	playerOne.inventory.add(fishingPole);
+	playerTwo.inventory.add(fishingPole);
 
 
-	player.InventoryPanel.setX(gameSettings.WINDOW_WIDTH / 2 + gameSettings.WINDOW_WIDTH / 4);
-	player.InventoryPanel.setY(gameSettings.WINDOW_HEIGHT / 2);
-	player.InventoryPanel.setHeight(gameSettings.WINDOW_HEIGHT - gameSettings.WINDOW_HEIGHT / 4);
-	player.InventoryPanel.setWidth(gameSettings.WINDOW_WIDTH / 3);
-	player.InventoryPanel.setIconSize(gameSettings.WINDOW_WIDTH / 50);
-	player.InventoryPanel.CreateInventory(renderer, player.inventory);
-	player.InventoryPanel.setDisplayInventory(false);
+	playerOne.InventoryPanel.setX(gameSettings.WINDOW_WIDTH / 2 + gameSettings.WINDOW_WIDTH / 4);
+	playerOne.InventoryPanel.setY(gameSettings.WINDOW_HEIGHT / 2);
+	playerOne.InventoryPanel.setHeight(gameSettings.WINDOW_HEIGHT - gameSettings.WINDOW_HEIGHT / 4);
+	playerOne.InventoryPanel.setWidth(gameSettings.WINDOW_WIDTH / 3);
+	playerOne.InventoryPanel.setIconSize(gameSettings.WINDOW_WIDTH / 50);
+	playerOne.InventoryPanel.CreateInventory(renderer, playerOne.inventory);
+	playerOne.InventoryPanel.setDisplayInventory(false);
 
-	player.craftingUI.setX(gameSettings.WINDOW_WIDTH / 4);
-	player.craftingUI.setY(gameSettings.WINDOW_HEIGHT / 2);
-	player.craftingUI.setHeight(gameSettings.WINDOW_HEIGHT - gameSettings.WINDOW_HEIGHT / 4);
-	player.craftingUI.setWidth(gameSettings.WINDOW_WIDTH / 3);
-	player.craftingUI.setIconSize(gameSettings.WINDOW_WIDTH / 25);
+	playerOne.craftingUI.setX(gameSettings.WINDOW_WIDTH / 4);
+	playerOne.craftingUI.setY(gameSettings.WINDOW_HEIGHT / 2);
+	playerOne.craftingUI.setHeight(gameSettings.WINDOW_HEIGHT - gameSettings.WINDOW_HEIGHT / 4);
+	playerOne.craftingUI.setWidth(gameSettings.WINDOW_WIDTH / 3);
+	playerOne.craftingUI.setIconSize(gameSettings.WINDOW_WIDTH / 25);
 	gameSettings.fpsTimer.start();
 
 	Mix_PlayMusic(gMusic, -1);
@@ -144,7 +153,7 @@ Menu:
 	while (gameSettings.running)
 	{
 		
-		player.setSize(Level::level.getCellSize());
+		playerOne.setSize(Level::level.getCellSize());
 		Level::level.setCellsInWindowSize(gameSettings.WINDOW_WIDTH / Level::level.getCellSize(), gameSettings.WINDOW_HEIGHT / Level::level.getCellSize());
 		// Get mouse Position
 		SDL_GetMouseState(&mouseX, &mouseY);
@@ -167,16 +176,16 @@ Menu:
 		}
 
 		// Handle the input
-		input.HandleUserInput(renderer, Level::level, player, Camera::camera, gameSettings, UI.toolbar, UI);
+		input.HandleUserInput(renderer, Level::level, playerOne, Camera::camera, gameSettings, UI.toolbar, UI);
 		
 		
 		//Player pos for camera lerp
 		glm::vec2 playerPos;
-		playerPos.x = player.getX() - Camera::camera.WindowWidth / 2;
-		playerPos.y = player.getY() - Camera::camera.WindowHeight / 2;
+		playerPos.x = playerOne.getX() - Camera::camera.WindowWidth / 2;
+		playerPos.y = playerOne.getY() - Camera::camera.WindowHeight / 2;
 
 
-		Camera::camera.Lerp_To(playerPos, Camera::camera.getCameraSpeed());
+		Camera::camera.Lerp_To({0,0}, Camera::camera.getCameraSpeed());
 		
 		// Clear Rendering process:
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -186,18 +195,18 @@ Menu:
 		
 
 		// Renders all the cells and players
-		rendering.RenderObjects(Level::level, renderer, Camera::camera, player, gameSettings, allPlayers);
+		rendering.RenderObjects(Level::level, renderer, Camera::camera, playerOne, gameSettings, allPlayers);
 
-		AImanager.Update(renderer, camera, player);
+		AImanager.Update(renderer, camera, playerOne);
 
 		// Render all the UI
-		UI.Render(renderer, player, gameSettings);
+		UI.Render(renderer, playerOne, gameSettings);
 
-		player.Update(Level::level);
+		playerOne.Update(Level::level);
 
 
-		if(player.pathFinder.path.size() > 0)
-			player.pathFinder.drawPath(player.pathFinder.path, renderer, Camera::camera, Level::level);
+		if(playerOne.pathFinder.path.size() > 0)
+			playerOne.pathFinder.drawPath(playerOne.pathFinder.path, renderer, Camera::camera, Level::level);
 
 		
 		if (gameSettings.displayMouse)
@@ -220,7 +229,7 @@ Menu:
 	if (gameSettings.saveLevelOnExit && !gameSettings.useNetworking)
 		gameSettings.saveLevelData(Level::level);
 	if (gameSettings.savePlayerOnExit)
-		gameSettings.savePlayerSettings(player);
+		gameSettings.savePlayerSettings(playerOne);
 	if (gameSettings.restartGame)
 		needsRestart = true;
 }

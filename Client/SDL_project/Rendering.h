@@ -12,15 +12,15 @@ public:
 	Rendering();
 	~Rendering();
 	//! Render all game objects
-	void RenderObjects(Level& level, SDL_Renderer* renderer, Camera& camera, Player& player, GameSettings& gameSettings, std::vector<std::shared_ptr<Player>>& allPlayers);
+	void RenderObjects(Level& level, SDL_Renderer* renderer, Camera& camera, Player& playerOne, GameSettings& gameSettings, std::vector<std::shared_ptr<Player>>& allPlayers);
 	//! Renders the level
-	void Rendering::RenderLevel(Level& level, Camera& camera, GameSettings& gameSettings, Player& player, SDL_Renderer* renderer);
+	void Rendering::RenderLevel(Level& level, Camera& camera, GameSettings& gameSettings, Player& playerOne, SDL_Renderer* renderer);
 	//! Renders a building
-	void RenderBuilding(std::shared_ptr<Building>& building, Camera& camera, GameSettings& gameSettings, Player& player, SDL_Renderer* renderer);
+	void RenderBuilding(std::shared_ptr<Building>& building, Camera& camera, GameSettings& gameSettings, Player& playerOne, SDL_Renderer* renderer);
 	//! Alter textures, i.e. transparency
 	void Rendering::AlterTextures(Level& level);
 	//! Render player
-	void Rendering::RenderPlayer(SDL_Renderer* renderer, Player& player, Level& level, Camera& camera);
+	void Rendering::RenderPlayer(SDL_Renderer* renderer, Player& playerOne, Level& level, Camera& camera);
 	//! Add texture to batch renderer
 	void Rendering::AddToBatchRendering(int ID, int x, int y, int& size, char layer);
 	//! render cells around objects

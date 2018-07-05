@@ -14,7 +14,7 @@ public:
 	int WINDOW_HEIGHT = 600;
 
 	//! Save the players settings
-	void savePlayerSettings(Player& player);
+	void savePlayerSettings(Player& playerOne);
 	Player getPlayerFromSave();
 	//! Save the level
 	void saveLevelData(Level& level);

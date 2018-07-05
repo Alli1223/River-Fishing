@@ -25,9 +25,9 @@ void Bobber::render(SDL_Renderer* renderer)
 	if (isBobbing)
 	{
 		// If the bobber is no longer on water
-		if (!Level::level.tiles[this->getX() / Level::level.getCellSize()][this->getY() / Level::level.getCellSize()]->isWater)
+		//if (!Level::level.tiles[(int)this->getX() / Level::level.getCellSize()][(int)this->getY() / Level::level.getCellSize()]->isWater)
 		{
-			reset();
+			//reset();
 		}
 		this->BobberTexture.renderRotation(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY() + (sin(SDL_GetTicks() / 500.0f) * 4.0f), this->getWidth(), this->getHeight(), cos(SDL_GetTicks() / 500));
 	}

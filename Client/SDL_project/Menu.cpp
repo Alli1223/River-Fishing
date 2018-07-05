@@ -22,7 +22,7 @@ std::shared_ptr<Button> get_instance(Button& n)
 }
 
 
-void Menu::MainMenu(GameSettings& gameSettings, Level& level, Camera& camera, Player& player, SDL_Renderer* renderer)
+void Menu::MainMenu(GameSettings& gameSettings, Level& level, Camera& camera, Player& playerOne, SDL_Renderer* renderer)
 {
 	// Create buttons
 	Button characterScreen("Character Customisation");
@@ -35,7 +35,7 @@ void Menu::MainMenu(GameSettings& gameSettings, Level& level, Camera& camera, Pl
 
 	// Scale mouse correctly depending on resolution
 	menuCursorSize = gameSettings.WINDOW_WIDTH / 25;
-	bodyColourSlider.setColour(player.getBodyColour());
+	bodyColourSlider.setColour(playerOne.getBodyColour());
 	gameSettings.gotoMainMenu = false;
 	gameSettings.inGameMenu = false;
 	// Display the menu screen
@@ -72,7 +72,7 @@ void Menu::MainMenu(GameSettings& gameSettings, Level& level, Camera& camera, Pl
 		if (play.isPressed())
 		{
 			displayCharacterMenu = true;
-			CharacterCustomisationMenu(gameSettings, camera, player, renderer, level);
+			CharacterCustomisationMenu(gameSettings, camera, playerOne, renderer, level);
 			//displayMainMenu = false;
 		}
 
@@ -82,7 +82,7 @@ void Menu::MainMenu(GameSettings& gameSettings, Level& level, Camera& camera, Pl
 		if (loadFromSave.isPressed())
 		{
 			gameSettings.loadGameFromSave(level);
-			player = gameSettings.getPlayerFromSave();
+			playerOne = gameSettings.getPlayerFromSave();
 			displayMainMenu = false;
 		}
 
@@ -98,7 +98,7 @@ void Menu::MainMenu(GameSettings& gameSettings, Level& level, Camera& camera, Pl
 		characterScreen.render(renderer, menuX, menuY + menuSeperationDistance + buttonHeight, buttonWidth * 3, buttonHeight * 1.5);
 		if (characterScreen.isPressed())
 		{
-			CharacterCustomisationMenu(gameSettings, camera, player, renderer, level);
+			CharacterCustomisationMenu(gameSettings, camera, playerOne, renderer, level);
 			displayCharacterMenu = true;
 		}
 		
@@ -108,7 +108,7 @@ void Menu::MainMenu(GameSettings& gameSettings, Level& level, Camera& camera, Pl
 	}
 }
 
-void Menu::CharacterCustomisationMenu(GameSettings& gameSettings, Camera& camera, Player& player, SDL_Renderer* renderer, Level& level)
+void Menu::CharacterCustomisationMenu(GameSettings& gameSettings, Camera& camera, Player& playerOne, SDL_Renderer* renderer, Level& level)
 {
 	Button back("Back");
 	Button singlePlayer("Start");
@@ -467,286 +467,286 @@ void Menu::CharacterCustomisationMenu(GameSettings& gameSettings, Camera& camera
 
 	//Only copy over the customsiation stuff
 	//playerCreation.setSize(100);
-	player.PlayerClothes = playerCreation.PlayerClothes;
-	player.setHairColour(playerCreation.gethairColour().r, playerCreation.gethairColour().g, playerCreation.gethairColour().b);
-	player.setEyeColour(playerCreation.getEyeColour().r, playerCreation.getEyeColour().g, playerCreation.getEyeColour().b);
-	player.setJacketColour(playerCreation.getJacketColour().r, playerCreation.getJacketColour().g, playerCreation.getJacketColour().b);
-	player.setJeansColour(playerCreation.getJeansColour().r, playerCreation.getJeansColour().g, playerCreation.getJeansColour().b);
-	player.body = playerCreation.body;
-	player.setBodyColour(playerCreation.getBodyColour().r, playerCreation.getBodyColour().g, playerCreation.getBodyColour().b);
+	playerOne.PlayerClothes = playerCreation.PlayerClothes;
+	playerOne.setHairColour(playerCreation.gethairColour().r, playerCreation.gethairColour().g, playerCreation.gethairColour().b);
+	playerOne.setEyeColour(playerCreation.getEyeColour().r, playerCreation.getEyeColour().g, playerCreation.getEyeColour().b);
+	playerOne.setJacketColour(playerCreation.getJacketColour().r, playerCreation.getJacketColour().g, playerCreation.getJacketColour().b);
+	playerOne.setJeansColour(playerCreation.getJeansColour().r, playerCreation.getJeansColour().g, playerCreation.getJeansColour().b);
+	playerOne.body = playerCreation.body;
+	playerOne.setBodyColour(playerCreation.getBodyColour().r, playerCreation.getBodyColour().g, playerCreation.getBodyColour().b);
 
 }
 
 
-void Menu::changeEarType(Player& player, bool increment)
+void Menu::changeEarType(Player& playerOne, bool increment)
 {
 	if (increment)
 	{
-		switch (player.body.earType)
+		switch (playerOne.body.earType)
 		{
 		case Player::Body::EarType::aquatic:
-			player.body.earType = Player::Body::EarType::cat1;
+			playerOne.body.earType = Player::Body::EarType::cat1;
 			break;
 		case Player::Body::EarType::cat1:
-			player.body.earType = Player::Body::EarType::cat2;
+			playerOne.body.earType = Player::Body::EarType::cat2;
 			break;
 		case Player::Body::EarType::cat2:
-			player.body.earType = Player::Body::EarType::elf1;
+			playerOne.body.earType = Player::Body::EarType::elf1;
 			break;
 		case Player::Body::EarType::elf1:
-			player.body.earType = Player::Body::EarType::elf2;
+			playerOne.body.earType = Player::Body::EarType::elf2;
 			break;
 		case Player::Body::EarType::elf2:
-			player.body.earType = Player::Body::EarType::elf3;
+			playerOne.body.earType = Player::Body::EarType::elf3;
 			break;
 		case Player::Body::EarType::elf3:
-			player.body.earType = Player::Body::EarType::elf4;
+			playerOne.body.earType = Player::Body::EarType::elf4;
 			break;
 		case Player::Body::EarType::elf4:
-			player.body.earType = Player::Body::EarType::elf5;
+			playerOne.body.earType = Player::Body::EarType::elf5;
 			break;
 		case Player::Body::EarType::elf5:
-			player.body.earType = Player::Body::EarType::elf6;
+			playerOne.body.earType = Player::Body::EarType::elf6;
 			break;
 		case Player::Body::EarType::elf6:
-			player.body.earType = Player::Body::EarType::human;
+			playerOne.body.earType = Player::Body::EarType::human;
 			break;
 		case Player::Body::EarType::human:
-			player.body.earType = Player::Body::EarType::aquatic;
+			playerOne.body.earType = Player::Body::EarType::aquatic;
 			break;
 		}
 	}
 	else
-		switch (player.body.earType)
+		switch (playerOne.body.earType)
 		{
 		case Player::Body::EarType::aquatic:
-			player.body.earType = Player::Body::EarType::human;
+			playerOne.body.earType = Player::Body::EarType::human;
 			break;
 		case Player::Body::EarType::human:
-			player.body.earType = Player::Body::EarType::elf6;
+			playerOne.body.earType = Player::Body::EarType::elf6;
 			break;
 		case Player::Body::EarType::elf6:
-			player.body.earType = Player::Body::EarType::elf5;
+			playerOne.body.earType = Player::Body::EarType::elf5;
 			break;
 		case Player::Body::EarType::elf5:
-			player.body.earType = Player::Body::EarType::elf4;
+			playerOne.body.earType = Player::Body::EarType::elf4;
 			break;
 		case Player::Body::EarType::elf4:
-			player.body.earType = Player::Body::EarType::elf3;
+			playerOne.body.earType = Player::Body::EarType::elf3;
 			break;
 		case Player::Body::EarType::elf3:
-			player.body.earType = Player::Body::EarType::elf2;
+			playerOne.body.earType = Player::Body::EarType::elf2;
 			break;
 		case Player::Body::EarType::elf2:
-			player.body.earType = Player::Body::EarType::elf1;
+			playerOne.body.earType = Player::Body::EarType::elf1;
 			break;
 		case Player::Body::EarType::elf1:
-			player.body.earType = Player::Body::EarType::cat2;
+			playerOne.body.earType = Player::Body::EarType::cat2;
 			break;
 		case Player::Body::EarType::cat2:
-			player.body.earType = Player::Body::EarType::cat1;
+			playerOne.body.earType = Player::Body::EarType::cat1;
 			break;
 		case Player::Body::EarType::cat1:
-			player.body.earType = Player::Body::EarType::aquatic;
+			playerOne.body.earType = Player::Body::EarType::aquatic;
 			break;
 		}
 
 }
 
-void Menu::changeEyeType(Player& player, bool increment)
+void Menu::changeEyeType(Player& playerOne, bool increment)
 {
 	if (increment)
 	{
-		switch (player.body.eyeType)
+		switch (playerOne.body.eyeType)
 		{
 		case Player::Body::EyeType::eye1:
-			player.body.eyeType = Player::Body::EyeType::eye2;
+			playerOne.body.eyeType = Player::Body::EyeType::eye2;
 			break;
 		case Player::Body::EyeType::eye2:
-			player.body.eyeType = Player::Body::EyeType::eye3;
+			playerOne.body.eyeType = Player::Body::EyeType::eye3;
 			break;
 		case Player::Body::EyeType::eye3:
-			player.body.eyeType = Player::Body::EyeType::eye4;
+			playerOne.body.eyeType = Player::Body::EyeType::eye4;
 			break;
 		case Player::Body::EyeType::eye4:
-			player.body.eyeType = Player::Body::EyeType::eye5;
+			playerOne.body.eyeType = Player::Body::EyeType::eye5;
 			break;
 		case Player::Body::EyeType::eye5:
-			player.body.eyeType = Player::Body::EyeType::eye6;
+			playerOne.body.eyeType = Player::Body::EyeType::eye6;
 			break;
 		case Player::Body::EyeType::eye6:
-			player.body.eyeType = Player::Body::EyeType::eye7;
+			playerOne.body.eyeType = Player::Body::EyeType::eye7;
 			break;
 		case Player::Body::EyeType::eye7:
-			player.body.eyeType = Player::Body::EyeType::eye8;
+			playerOne.body.eyeType = Player::Body::EyeType::eye8;
 			break;
 		case Player::Body::EyeType::eye8:
-			player.body.eyeType = Player::Body::EyeType::eye9;
+			playerOne.body.eyeType = Player::Body::EyeType::eye9;
 			break;
 		case Player::Body::EyeType::eye9:
-			player.body.eyeType = Player::Body::EyeType::eye10;
+			playerOne.body.eyeType = Player::Body::EyeType::eye10;
 			break;
 		case Player::Body::EyeType::eye10:
-			player.body.eyeType = Player::Body::EyeType::eye11;
+			playerOne.body.eyeType = Player::Body::EyeType::eye11;
 			break;
 		case Player::Body::EyeType::eye11:
-			player.body.eyeType = Player::Body::EyeType::eye12;
+			playerOne.body.eyeType = Player::Body::EyeType::eye12;
 			break;
 		case Player::Body::EyeType::eye12:
-			player.body.eyeType = Player::Body::EyeType::eye13;
+			playerOne.body.eyeType = Player::Body::EyeType::eye13;
 			break;
 		case Player::Body::EyeType::eye13:
-			player.body.eyeType = Player::Body::EyeType::eye1;
+			playerOne.body.eyeType = Player::Body::EyeType::eye1;
 			break;
 		}
 	}
 	else
-		switch (player.body.eyeType)
+		switch (playerOne.body.eyeType)
 		{
 		case Player::Body::EyeType::eye13:
-			player.body.eyeType = Player::Body::EyeType::eye12;
+			playerOne.body.eyeType = Player::Body::EyeType::eye12;
 			break;
 		case Player::Body::EyeType::eye12:
-			player.body.eyeType = Player::Body::EyeType::eye11;
+			playerOne.body.eyeType = Player::Body::EyeType::eye11;
 			break;
 		case Player::Body::EyeType::eye11:
-			player.body.eyeType = Player::Body::EyeType::eye10;
+			playerOne.body.eyeType = Player::Body::EyeType::eye10;
 			break;
 		case Player::Body::EyeType::eye10:
-			player.body.eyeType = Player::Body::EyeType::eye9;
+			playerOne.body.eyeType = Player::Body::EyeType::eye9;
 			break;
 		case Player::Body::EyeType::eye9:
-			player.body.eyeType = Player::Body::EyeType::eye8;
+			playerOne.body.eyeType = Player::Body::EyeType::eye8;
 			break;
 		case Player::Body::EyeType::eye8:
-			player.body.eyeType = Player::Body::EyeType::eye7;
+			playerOne.body.eyeType = Player::Body::EyeType::eye7;
 			break;
 		case Player::Body::EyeType::eye7:
-			player.body.eyeType = Player::Body::EyeType::eye6;
+			playerOne.body.eyeType = Player::Body::EyeType::eye6;
 			break;
 		case Player::Body::EyeType::eye6:
-			player.body.eyeType = Player::Body::EyeType::eye5;
+			playerOne.body.eyeType = Player::Body::EyeType::eye5;
 			break;
 		case Player::Body::EyeType::eye5:
-			player.body.eyeType = Player::Body::EyeType::eye4;
+			playerOne.body.eyeType = Player::Body::EyeType::eye4;
 			break;
 		case Player::Body::EyeType::eye4:
-			player.body.eyeType = Player::Body::EyeType::eye3;
+			playerOne.body.eyeType = Player::Body::EyeType::eye3;
 			break;
 		case Player::Body::EyeType::eye3:
-			player.body.eyeType = Player::Body::EyeType::eye2;
+			playerOne.body.eyeType = Player::Body::EyeType::eye2;
 			break;
 		case Player::Body::EyeType::eye2:
-			player.body.eyeType = Player::Body::EyeType::eye1;
+			playerOne.body.eyeType = Player::Body::EyeType::eye1;
 			break;
 		case Player::Body::EyeType::eye1:
-			player.body.eyeType = Player::Body::EyeType::eye13;
+			playerOne.body.eyeType = Player::Body::EyeType::eye13;
 			break;
 		}
 
 }
 
-void Menu::changeHairType(Player& player, bool increment)
+void Menu::changeHairType(Player& playerOne, bool increment)
 {
 	if (increment)
 	{
-		switch (player.body.hairType)
+		switch (playerOne.body.hairType)
 		{
 		case Player::Body::HairType::hair1:
-			player.body.hairType = Player::Body::HairType::hair2;
+			playerOne.body.hairType = Player::Body::HairType::hair2;
 			break;
 		case Player::Body::HairType::hair2:
-			player.body.hairType = Player::Body::HairType::hair3;
+			playerOne.body.hairType = Player::Body::HairType::hair3;
 			break;
 		case Player::Body::HairType::hair3:
-			player.body.hairType = Player::Body::HairType::hair4;
+			playerOne.body.hairType = Player::Body::HairType::hair4;
 			break;
 		case Player::Body::HairType::hair4:
-			player.body.hairType = Player::Body::HairType::hair5;
+			playerOne.body.hairType = Player::Body::HairType::hair5;
 			break;
 		case Player::Body::HairType::hair5:
-			player.body.hairType = Player::Body::HairType::hair6;
+			playerOne.body.hairType = Player::Body::HairType::hair6;
 			break;
 		case Player::Body::HairType::hair6:
-			player.body.hairType = Player::Body::HairType::hair7;
+			playerOne.body.hairType = Player::Body::HairType::hair7;
 			break;
 		case Player::Body::HairType::hair7:
-			player.body.hairType = Player::Body::HairType::hair8;
+			playerOne.body.hairType = Player::Body::HairType::hair8;
 			break;
 		case Player::Body::HairType::hair8:
-			player.body.hairType = Player::Body::HairType::hair1;
+			playerOne.body.hairType = Player::Body::HairType::hair1;
 		}
 	}
 	else
-		switch (player.body.hairType)
+		switch (playerOne.body.hairType)
 		{
 		case Player::Body::HairType::hair8:
-			player.body.hairType = Player::Body::HairType::hair7;
+			playerOne.body.hairType = Player::Body::HairType::hair7;
 			break;
 		case Player::Body::HairType::hair7:
-			player.body.hairType = Player::Body::HairType::hair6;
+			playerOne.body.hairType = Player::Body::HairType::hair6;
 			break;
 		case Player::Body::HairType::hair6:
-			player.body.hairType = Player::Body::HairType::hair5;
+			playerOne.body.hairType = Player::Body::HairType::hair5;
 			break;
 		case Player::Body::HairType::hair5:
-			player.body.hairType = Player::Body::HairType::hair4;
+			playerOne.body.hairType = Player::Body::HairType::hair4;
 			break;
 		case Player::Body::HairType::hair4:
-			player.body.hairType = Player::Body::HairType::hair3;
+			playerOne.body.hairType = Player::Body::HairType::hair3;
 			break;
 		case Player::Body::HairType::hair3:
-			player.body.hairType = Player::Body::HairType::hair2;
+			playerOne.body.hairType = Player::Body::HairType::hair2;
 			break;
 		case Player::Body::HairType::hair2:
-			player.body.hairType = Player::Body::HairType::hair1;
+			playerOne.body.hairType = Player::Body::HairType::hair1;
 			break;
 		case Player::Body::HairType::hair1:
-			player.body.hairType = Player::Body::HairType::hair8;
+			playerOne.body.hairType = Player::Body::HairType::hair8;
 
 		}
 
 }
 
-void Menu::changeBottomType(Player& player, bool increment)
+void Menu::changeBottomType(Player& playerOne, bool increment)
 {
 	if (increment)
 	{
-		if (player.PlayerClothes.leg == Player::Clothing::noBottoms)
-			player.PlayerClothes.leg = Player::Clothing::femaleBottom1;
-		else if (player.PlayerClothes.leg == Player::Clothing::femaleBottom1)
-			player.PlayerClothes.leg = Player::Clothing::femaleBottom2;
-		else if (player.PlayerClothes.leg == Player::Clothing::femaleBottom2)
-			player.PlayerClothes.leg = Player::Clothing::noBottoms;
+		if (playerOne.PlayerClothes.leg == Player::Clothing::noBottoms)
+			playerOne.PlayerClothes.leg = Player::Clothing::femaleBottom1;
+		else if (playerOne.PlayerClothes.leg == Player::Clothing::femaleBottom1)
+			playerOne.PlayerClothes.leg = Player::Clothing::femaleBottom2;
+		else if (playerOne.PlayerClothes.leg == Player::Clothing::femaleBottom2)
+			playerOne.PlayerClothes.leg = Player::Clothing::noBottoms;
 	}
 	else
 	{
-		if (player.PlayerClothes.leg == Player::Clothing::noBottoms)
-			player.PlayerClothes.leg = Player::Clothing::femaleBottom2;
-		else if (player.PlayerClothes.leg == Player::Clothing::femaleBottom2)
-			player.PlayerClothes.leg = Player::Clothing::femaleBottom1;
-		else if (player.PlayerClothes.leg == Player::Clothing::femaleBottom1)
-			player.PlayerClothes.leg = Player::Clothing::noBottoms;
+		if (playerOne.PlayerClothes.leg == Player::Clothing::noBottoms)
+			playerOne.PlayerClothes.leg = Player::Clothing::femaleBottom2;
+		else if (playerOne.PlayerClothes.leg == Player::Clothing::femaleBottom2)
+			playerOne.PlayerClothes.leg = Player::Clothing::femaleBottom1;
+		else if (playerOne.PlayerClothes.leg == Player::Clothing::femaleBottom1)
+			playerOne.PlayerClothes.leg = Player::Clothing::noBottoms;
 	}
 }
-void Menu::changeTopType(Player& player, bool increment)
+void Menu::changeTopType(Player& playerOne, bool increment)
 {
 	if (increment)
 	{
-		if (player.PlayerClothes.body == Player::Clothing::noTop)
-			player.PlayerClothes.body = Player::Clothing::femaleTop1;
-		else if (player.PlayerClothes.body == Player::Clothing::femaleTop1)
-			player.PlayerClothes.body = Player::Clothing::femaleTop2;
-		else if (player.PlayerClothes.body == Player::Clothing::femaleTop2)
-			player.PlayerClothes.body = Player::Clothing::noTop;
+		if (playerOne.PlayerClothes.body == Player::Clothing::noTop)
+			playerOne.PlayerClothes.body = Player::Clothing::femaleTop1;
+		else if (playerOne.PlayerClothes.body == Player::Clothing::femaleTop1)
+			playerOne.PlayerClothes.body = Player::Clothing::femaleTop2;
+		else if (playerOne.PlayerClothes.body == Player::Clothing::femaleTop2)
+			playerOne.PlayerClothes.body = Player::Clothing::noTop;
 	}
 	else
 	{
-		if (player.PlayerClothes.body == Player::Clothing::noTop)
-			player.PlayerClothes.body = Player::Clothing::femaleTop2;
-		else if (player.PlayerClothes.body == Player::Clothing::femaleTop2)
-			player.PlayerClothes.body = Player::Clothing::femaleTop1;
-		else if (player.PlayerClothes.body == Player::Clothing::femaleTop1)
-			player.PlayerClothes.body = Player::Clothing::noTop;
+		if (playerOne.PlayerClothes.body == Player::Clothing::noTop)
+			playerOne.PlayerClothes.body = Player::Clothing::femaleTop2;
+		else if (playerOne.PlayerClothes.body == Player::Clothing::femaleTop2)
+			playerOne.PlayerClothes.body = Player::Clothing::femaleTop1;
+		else if (playerOne.PlayerClothes.body == Player::Clothing::femaleTop1)
+			playerOne.PlayerClothes.body = Player::Clothing::noTop;
 	}
 }

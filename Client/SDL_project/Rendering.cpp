@@ -142,7 +142,7 @@ void Rendering::renderCellsAroundObject(SDL_Renderer* renderer, Level& level, in
 
 	}
 }
-void Rendering::RenderBuilding(std::shared_ptr<Building>& building, Camera& camera, GameSettings& gameSettings, Player& player, SDL_Renderer* renderer)
+void Rendering::RenderBuilding(std::shared_ptr<Building>& building, Camera& camera, GameSettings& gameSettings, Player& playerOne, SDL_Renderer* renderer)
 {
 	int newX = 0, newY = 0;
 	int xPos = 0, yPos = 0;
@@ -239,7 +239,7 @@ void Rendering::RenderBuilding(std::shared_ptr<Building>& building, Camera& came
 
 		}
 }
-void Rendering::RenderLevel(Level& level, Camera& camera, GameSettings& gameSettings, Player& player, SDL_Renderer* renderer)
+void Rendering::RenderLevel(Level& level, Camera& camera, GameSettings& gameSettings, Player& playerOne, SDL_Renderer* renderer)
 {
 	int newX = 0, newY = 0;
 	int xPos = 0, yPos = 0;
@@ -463,15 +463,15 @@ void Rendering::RenderLevel(Level& level, Camera& camera, GameSettings& gameSett
 
 
 //! Renders the chunks of cells
-void Rendering::RenderObjects(Level& level, SDL_Renderer* renderer, Camera& camera, Player& player, GameSettings& gameSettings, std::vector<std::shared_ptr<Player>>& allPlayers)
+void Rendering::RenderObjects(Level& level, SDL_Renderer* renderer, Camera& camera, Player& playerOne, GameSettings& gameSettings, std::vector<std::shared_ptr<Player>>& allPlayers)
 {	
 	// Alter the textures
 	AlterTextures(level);
-	if(!player.isInBuilding)
-		RenderLevel(level, camera, gameSettings, player, renderer);
+	if(!playerOne.isInBuilding)
+		RenderLevel(level, camera, gameSettings, playerOne, renderer);
 	else
 	{
-		RenderBuilding(level.buildings[0], camera, gameSettings, player, renderer);
+		RenderBuilding(level.buildings[0], camera, gameSettings, playerOne, renderer);
 	}
 	//! The index of where the sprite is in the atlas
 	int index;
@@ -509,12 +509,12 @@ void Rendering::RenderObjects(Level& level, SDL_Renderer* renderer, Camera& came
 	
 
 	// Render the player
-	player.RenderPlayer(renderer, camera);
+	playerOne.RenderPlayer(renderer, camera);
 	//Update and render multi players
-	for each (auto &player in allPlayers)
+	for each (auto &playerOne in allPlayers)
 	{
-		player->Update(level);
-		player->RenderPlayer(renderer, camera);
+		playerOne->Update(level);
+		playerOne->RenderPlayer(renderer, camera);
 	}
 
 	// Batch render all the textures
@@ -538,7 +538,7 @@ void Rendering::RenderObjects(Level& level, SDL_Renderer* renderer, Camera& came
 	
 }
 
-void Rendering::RenderPlayer(SDL_Renderer* renderer, Player& player,  Level& level, Camera& camera)
+void Rendering::RenderPlayer(SDL_Renderer* renderer, Player& playerOne,  Level& level, Camera& camera)
 {
 	//int x = player.getX() - camera.getX();
 	//int y = player.getY() - camera.getY();

@@ -15,14 +15,14 @@ public:
 	~UserInput();
 
 	//! Handle the users input
-	void HandleUserInput(SDL_Renderer* renderer, Level& level, Player& player, Camera& camera, GameSettings& gameSettings, ToolBar& toolbar, GameUI& UI);
+	void HandleUserInput(SDL_Renderer* renderer, Level& level, Player& playerOne, Camera& camera, GameSettings& gameSettings, ToolBar& toolbar, GameUI& UI);
 	
 	//! Used to change cells around a cell
 	void ChangeCellsAroundPoint(Level& level, glm::vec2 point, int dist, std::string type);
 
 private:
 	//! Use item that is selected in the toolbar
-	void UseItemFromToolbar(SDL_Renderer* renderer, ToolBar& toolbar, Player& player, GameSettings& gameSettings);
+	void UseItemFromToolbar(SDL_Renderer* renderer, ToolBar& toolbar, Player& playerOne, GameSettings& gameSettings);
 
 	//! Timers for UIs to have a timeout when opened or closed
 	Timer inventoryTimer;

@@ -56,17 +56,17 @@ void FishingRod::SpawnBobber()
 	{
 		int cellSize = Level::level.getCellSize();
 		// Left
-		if (rotation == 90)
+		if (playerRotation == 90)
 			if (Level::level.tiles[getX() / cellSize - castingDistance][getY() / cellSize]->isWater)
 			{
 				bobber.setPosition((getX() / cellSize - castingDistance) * cellSize, getY() + (rand() % 50) + 25);
 			}
 
 		// Right
-		if (rotation == 270)
+		if (playerRotation == 270)
 			if (Level::level.tiles[getX() / cellSize + castingDistance][getY() / cellSize]->isWater)
 			{
-				bobber.setPosition((getX() / cellSize - castingDistance) * cellSize, getY() + (rand() % 50) + 25);
+				bobber.setPosition((getX() / cellSize + castingDistance) * cellSize, getY() + (rand() % 50) + 25);
 			}
 		// We are now waiting for the fish
 		waitingForFish = true;

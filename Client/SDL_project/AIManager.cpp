@@ -18,7 +18,7 @@ AIManager::~AIManager()
 }
 
 
-void AIManager::Update(SDL_Renderer* renderer, Camera& camera, Player& player)
+void AIManager::Update(SDL_Renderer* renderer, Camera& camera, Player& playerOne)
 {
 	// Spawn fish
 	if (fishSpawnTimer.getTicks() > fishSpawnRate && fishCounter < allFish.size())
@@ -42,33 +42,33 @@ void AIManager::Update(SDL_Renderer* renderer, Camera& camera, Player& player)
 		}
 
 		// If fish collides with bobber
-		if (fish.collidesWith(player.fishingRod.bobber) && player.fishingRod.bobber.isBobbing)
+		if (fish.collidesWith(playerOne.fishingRod.bobber) && playerOne.fishingRod.bobber.isBobbing)
 		{
 			// Move the fish towards the bobber
-			fish.MoveTowards(player.fishingRod.bobber.getPosition());
+			fish.MoveTowards(playerOne.fishingRod.bobber.getPosition());
 			fish.isHooked = true;
-			player.fishingRod.bobber.fishHooked = true;
+			playerOne.fishingRod.bobber.fishHooked = true;
 
 			// Add to inventory if collided with fishingpole
-			if (fish.collidesWith(player.fishingRod))
+			if (fish.collidesWith(playerOne.fishingRod))
 			{
 				if (fish.fishType == Fish::FishType::one)
 				{
 					Item fishItem;
 					fishItem.type.Resource = Item::ItemType::isFishOne;
-					player.inventory.add(fishItem);
+					playerOne.inventory.add(fishItem);
 				}
 				else if (fish.fishType == Fish::FishType::two)
 				{
 					Item fishItem;
 					fishItem.type.Resource = Item::ItemType::isFishTwo;
-					player.inventory.add(fishItem);
+					playerOne.inventory.add(fishItem);
 				}
 				else if (fish.fishType == Fish::FishType::three)
 				{
 					Item fishItem;
 					fishItem.type.Resource = Item::ItemType::isFishThree;
-					player.inventory.add(fishItem);
+					playerOne.inventory.add(fishItem);
 				}
 				// Erase that fish
 				allFish.erase(allFish.begin() + i);

@@ -16,9 +16,9 @@ InGameMenu::~InGameMenu()
 
 void InGameMenu::render(SDL_Renderer* renderer, GameSettings& gameSettings)
 {
+	background.alterTextureColour(100, 100, 100);
+	background.alterTransparency(100);
 	
-	background.alterTransparency(200);
-	background.alterTextureColour(200, 100, 50);
 	background.render(renderer, gameSettings.WINDOW_WIDTH / 2, gameSettings.WINDOW_HEIGHT / 2, gameSettings.WINDOW_WIDTH, gameSettings.WINDOW_HEIGHT);
 	Exit.render(renderer, gameSettings.WINDOW_WIDTH / 2 - buttonSize, gameSettings.WINDOW_HEIGHT / 2, buttonSize, buttonSize);
 	Save.render(renderer, gameSettings.WINDOW_WIDTH / 2, gameSettings.WINDOW_HEIGHT / 2, buttonSize, buttonSize);
