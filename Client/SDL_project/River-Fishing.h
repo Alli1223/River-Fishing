@@ -52,6 +52,11 @@ public:
 	GameUI UI;
 	AIManager AImanager;
 	
+
+	//The music that will be played
+	Mix_Music *gMusic = NULL;
+
+
 	bool needsRestart = false;
 	
 

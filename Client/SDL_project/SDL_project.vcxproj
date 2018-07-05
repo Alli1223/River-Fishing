@@ -77,8 +77,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>Libraries\SDL2-2.0.4\include;Libraries\SDL2_image-2.0.1\include;Libraries\SDL2_ttf-2.0.14\include;Libraries\boost_1_63_0;Libraries\glm\glm;Libraries\glew-2.1.0\include;Libraries\json;$(IncludePath)</IncludePath>
-    <LibraryPath>Libraries\SDL2-2.0.4\lib\x64;Libraries\SDL2_image-2.0.1\lib\x64;Libraries\boost_1_63_0\lib\x64;Libraries\glew-2.1.0\lib\Release\x64;Libraries\SDL2_ttf-2.0.14\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>Libraries\SDL2-2.0.8\include;Libraries\SDL2_image-2.0.1\include;Libraries\SDL2_ttf-2.0.14\include;Libraries\SDL2_mixer-2.0.2\include;Libraries\boost_1_63_0;Libraries\glm\glm;Libraries\glew-2.1.0\include;Libraries\json;$(IncludePath)</IncludePath>
+    <LibraryPath>Libraries\SDL2-2.0.8\lib\x64;Libraries\SDL2_image-2.0.1\lib\x64;Libraries\boost_1_63_0\lib\x64;Libraries\glew-2.1.0\lib\Release\x64;Libraries\SDL2_ttf-2.0.14\lib\x64;Libraries\SDL2_mixer-2.0.2\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -87,8 +87,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>Libraries\SDL2-2.0.4\include;Libraries\SDL2_image-2.0.1\include;Libraries\SDL2_ttf-2.0.14\include;Libraries\glm\glm;Libraries\boost_1_63_0;Libraries\glew-2.1.0\include;Libraries\json;$(IncludePath)</IncludePath>
-    <LibraryPath>Libraries\SDL2-2.0.4\lib\x64;Libraries\SDL2_image-2.0.1\lib\x64;Libraries\boost_1_63_0\lib\x64;Libraries\glew-2.1.0\lib\Release\x64;Libraries\SDL2_ttf-2.0.14\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>Libraries\SDL2-2.0.8\include;Libraries\SDL2_image-2.0.1\include;Libraries\SDL2_ttf-2.0.14\include;Libraries\glm\glm;Libraries\boost_1_63_0;Libraries\glew-2.1.0\include;Libraries\json;Libraries\SDL2_mixer-2.0.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>Libraries\SDL2-2.0.8\lib\x64;Libraries\SDL2_image-2.0.1\lib\x64;Libraries\boost_1_63_0\lib\x64;Libraries\glew-2.1.0\lib\Release\x64;Libraries\SDL2_ttf-2.0.14\lib\x64;Libraries\SDL2_mixer-2.0.2\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -115,9 +115,15 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;glew32.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;glew32.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>boost_1_57_0\stage\lib;SDL_project\boost_1_63_0\stage\lib;SDL_project\boost_1_63_0\libs\asio;SDL_project\boost_1_63_0\libs\asio\test;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <PreventDllBinding>
+      </PreventDllBinding>
+      <ShowProgress>LinkVerbose</ShowProgress>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -153,7 +159,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;glew32.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;glew32.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

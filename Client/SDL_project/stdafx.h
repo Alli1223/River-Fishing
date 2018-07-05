@@ -51,6 +51,7 @@
 
 //SDL TTF for writing to screen
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 
 
 // json parser

@@ -11,12 +11,18 @@ void showErrorMessage(const char* message, const char* title)
 
 RiverFishing::RiverFishing() : backgroundTexture("Resources\\background5.jpg"), mousePointer("Resources\\Sprites\\Cursor\\cursor.png")
 {
-	if (SDL_Init(SDL_INIT_VIDEO) < 0 || SDL_Init(SDL_INIT_TIMER | SDL_INIT_JOYSTICK) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 || SDL_Init(SDL_INIT_TIMER | SDL_INIT_JOYSTICK) < 0)
 	{
 		std::cout << (stderr, "Couldn't initialize SDL: %s\n", SDL_GetError()) << std::endl;
 		throw InitialisationError("SDL_Init failed");
 	}
 	
+	//Initialize SDL_mixer
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+	{
+		printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+	}
+
 	SDL_ShowCursor(SDL_DISABLE);
 
 	// Set Window Size
@@ -62,8 +68,17 @@ RiverFishing::RiverFishing() : backgroundTexture("Resources\\background5.jpg"), 
 
 RiverFishing::~RiverFishing()
 {
+	//Free the music
+	Mix_FreeMusic(gMusic);
+	gMusic = NULL;
+
+	// Destroy window
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+
+	// Quit SDL subsystems
+	Mix_Quit();
+	IMG_Quit();
 	SDL_Quit();
 }
 
@@ -85,6 +100,11 @@ Menu:
 
 	int cellSize = Level::level.getCellSize();
 	
+	gMusic = Mix_LoadMUS("Resources\\Sounds\\Music\\Fantasy_Game_Loop.wav");
+	if (gMusic == NULL)
+	{
+		printf("Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError());
+	}
 
 	// Create a unique playername
 	std::string playerName = std::to_string(SDL_GetTicks());
@@ -119,10 +139,11 @@ Menu:
 	player.craftingUI.setIconSize(gameSettings.WINDOW_WIDTH / 25);
 	gameSettings.fpsTimer.start();
 
-
+	Mix_PlayMusic(gMusic, -1);
 	/////////////////////////////////////////////// MAIN LOOP ///////////////////////////////////////
 	while (gameSettings.running)
 	{
+		
 		player.setSize(Level::level.getCellSize());
 		Level::level.setCellsInWindowSize(gameSettings.WINDOW_WIDTH / Level::level.getCellSize(), gameSettings.WINDOW_HEIGHT / Level::level.getCellSize());
 		// Get mouse Position
