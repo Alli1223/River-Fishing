@@ -7,6 +7,7 @@ FishingRod::FishingRod() : fishingRodTexture(ResourceManager::fishTextureLocatio
 	// Set texture settings
 	objectTexture.atlasType = Texture::TextureType::Sprite;
 	this->objectTexture = fishingRodTexture;
+	bobber.setPosition(-100, -100);
 	
 
 }

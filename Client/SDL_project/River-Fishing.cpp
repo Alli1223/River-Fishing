@@ -196,8 +196,8 @@ Menu:
 		player.Update(Level::level);
 
 
-		if(player.pathFinder.Path.size() > 0)
-			player.pathFinder.drawPath(player.pathFinder.Path, renderer, Camera::camera, Level::level);
+		if(player.pathFinder.path.size() > 0)
+			player.pathFinder.drawPath(player.pathFinder.path, renderer, Camera::camera, Level::level);
 
 		
 		if (gameSettings.displayMouse)

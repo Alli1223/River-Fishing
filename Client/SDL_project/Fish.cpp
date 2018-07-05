@@ -19,6 +19,10 @@ Fish::~Fish()
 
 void Fish::render(SDL_Renderer* renderer)
 {
+	fishTexture.alterTransparency(transparency);
+	fishTwoTexture.alterTransparency(transparency);
+	fishThreeTexture.alterTransparency(transparency);
+
 	switch (fishType)
 	{
 	default:

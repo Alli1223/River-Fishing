@@ -30,17 +30,24 @@ void AIManager::Update(SDL_Renderer* renderer, Camera& camera, Player& player)
 	}
 	for (auto &fish : allFish)
 	{
+		// Reset the fish to top of stream
 		if (fish.getY() > Level::level.tiles[0].size() * Level::level.getCellSize())
 		{
 			fish.setY(-10);
 		}
+		// If fish collides with bobber
 		if (fish.collidesWith(player.fishingRod.bobber))
 		{
-			fish.move(player.fishingRod.bobber.getPosition());
+			fish.move(player.getPosition());
 			std::cout << "Collision with fish" << std::endl;
 		}
-		fish.setY(fish.getY() + fish.getSpeed());
+
+		// Move the fish downstream if they have nowhere to go
+		if(fish.pathfinder.path.size() <= 0)
+			fish.setY(fish.getY() + fish.getSpeed());
 		
+
+		// Render the fish
 		fish.render(renderer);
 	}
 	

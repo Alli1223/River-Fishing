@@ -12,8 +12,7 @@ public:
 
 	//! Pathfinder for the animal
 	Pathfinder pathfinder;
-	// Path of the animal
-	std::vector<Point> Path;
+	int pathPointIterator;
 	void render(SDL_Renderer * renderer);
 
 };

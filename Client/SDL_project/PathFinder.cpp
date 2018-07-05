@@ -112,11 +112,11 @@ std::vector<Point> Pathfinder::findPath(Level& level, glm::ivec2& startPoint, gl
 {
 	// Clear all the node for fresh pathfind
 	nodes.clear();
-	Point start = Point(startPoint.x, startPoint.y);
-	Point goal = Point(goalPoint.x, goalPoint.y);
+	Point start = Point(startPoint.x / Level::level.getCellSize(), startPoint.y / Level::level.getCellSize());
+	Point goal = Point(goalPoint.x / Level::level.getCellSize(), goalPoint.y / Level::level.getCellSize());
 
 	std::cout << "Computing Path" << std::endl;
-	std::cout << "First Pos: " << start.getX() << "," << start.getY() << " End: " << goal.getX() << "," << goal.getY() << std::endl;
+	
 	// IF the start and end are accessable
 	//if (level.getCell(start.getX(), start.getY())->isWalkable && level.getCell(goal.getX(), goal.getY())->isWalkable)
 	{
@@ -125,49 +125,15 @@ std::vector<Point> Pathfinder::findPath(Level& level, glm::ivec2& startPoint, gl
 		glm::vec2 cellPos;
 		startNode = start;
 
-		if (false)
-		{
-
-			// Set offset to make path above 0
-			if (goal.getX() < 0)
-			{
-				offsetPath = true;
-				offset.x = (goal.getX() * -1);
-			}
-			if (goal.getY() < 0)
-			{
-				offsetPath = true;
-				offset.y = (goal.getY() * -1);
-			}
-
-
-			if (start.getX() < 0 && offset.x < (start.getX() * -1))
-			{
-				offset.x += (start.getX() * -1);
-				offsetPath = true;
-			}
-
-			if (start.getY() < 0 && offset.y < (start.getY() * -1))
-			{
-				offsetPath = true;
-				offset.y += (start.getY() * -1);
-			}
-		}
-
-		//offset += euclideanDistance(start, goal) * 2;
-		
-
-
 		//start.setPosition(start.getX() + offset.x, start.getY() + offset.y);
 		//goal.setPosition(goal.getX() + offset.x, goal.getY() + offset.y);
 		//startNode = start;
 
 		//change searchSize based on distance between target
-		searchSize = euclideanDistance(start, goal) * 4;
-		std::cout << "SearchSize: " << searchSize << std::endl;
-		std::cout << "Second Pos: " << start.getX() << "," << start.getY() << " End: " << goal.getX() << "," << goal.getY() << std::endl;
-		if (searchSize <= 5)
-			searchSize = 10;
+		//searchSize = euclideanDistance(start, goal);
+		//std::cout << "SearchSize: " << searchSize << std::endl;
+		//std::cout << "Second Pos: " << start.getX() << "," << start.getY() << " End: " << goal.getX() << "," << goal.getY() << std::endl;
+		searchSize = 100;
 		
 		// Create nodes for every cell in the grid
 		for (int x = 0; x < searchSize; x++)
@@ -241,11 +207,10 @@ std::vector<Point> Pathfinder::reconstructPath(std::shared_ptr<Node> goalNode)
 	for (auto currentNode = goalNode; currentNode; currentNode = currentNode->cameFrom)
 	{
 		// If the path is offset, reset it
-		if(offsetPath)
-			currentNode->point.setPosition(currentNode->point.getX() - offset.x, currentNode->point.getY() - offset.y);
+		currentNode->point.setPosition(currentNode->point.getX() - offset.x, currentNode->point.getY() - offset.y);
 		result.insert(result.begin(), currentNode->point);
 	}
-	Path = result;
+	path = result;
 	std::cout << "PathSize: " << result.size() << std::endl;
 	return result;
 }

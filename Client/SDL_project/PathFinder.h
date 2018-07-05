@@ -80,7 +80,7 @@ public:
 	//! Returns the path that has been found
 	std::vector<Point> reconstructPath(std::shared_ptr<Node> goalNode);
 	void Pathfinder::drawPath(std::vector<Point>& path, SDL_Renderer* renderer, Camera& camera, Level& level);
-	std::vector<Point> Path;
+	std::vector<Point> path;
 private:
 	//! A vector of nodes that is within the level that can be searched
 	std::vector<std::vector<std::shared_ptr<Node>>> nodes;
@@ -102,7 +102,6 @@ private:
 	std::shared_ptr<Node> getOrCreateNode(int x, int y);
 	std::shared_ptr<Node> getOrCreateNode(const Point& point);
 	bool isInClosedSet(Point& point);
-	bool offsetPath = false;
 	glm::vec2 offset;
 	Point startNode;
 
