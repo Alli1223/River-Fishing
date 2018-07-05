@@ -32,8 +32,8 @@ RiverFishing::RiverFishing() : backgroundTexture("Resources\\background5.jpg"), 
 	gameSettings.WINDOW_WIDTH;
 	if (!gameSettings.fullscreen)
 	{
-		gameSettings.WINDOW_HEIGHT;
-		gameSettings.WINDOW_WIDTH;
+		gameSettings.WINDOW_HEIGHT /= 2;
+		gameSettings.WINDOW_WIDTH /= 2;
 	}
 	gameSettings.deltaTime = SDL_GetTicks();
 	
@@ -94,7 +94,7 @@ Menu:
 	if (gameSettings.mainMenu)
 	{
 		Menu menu;
-		menu.MainMenu(gameSettings, Level::level, Camera::camera, playerOne, renderer);
+		menu.MainMenu(gameSettings, Level::level, Camera::camera, players, renderer);
 		menu.~menu();
 	}
 
@@ -109,28 +109,28 @@ Menu:
 	///Create players
 	// Create playerOne
 	std::string playerName = std::to_string(SDL_GetTicks());
-	playerOne.characterType = "Player";
-	playerOne.setID(playerName);
-	playerOne.setSize(Level::level.getCellSize() * 2);
-	playerOne.setPosition(gameSettings.WINDOW_WIDTH / 2 - 1500, gameSettings.WINDOW_HEIGHT / 2);
+	players[0].characterType = "Player";
+	players[0].setID(playerName);
+	players[0].setSize(Level::level.getCellSize() * 2);
+	players[0].setPosition(gameSettings.WINDOW_WIDTH / 2 - 50, gameSettings.WINDOW_HEIGHT / 2);
 
 	playerName = std::to_string(SDL_GetTicks() * 2.0f);
-	playerTwo.characterType = "Player";
-	playerTwo.setID(playerName);
-	playerTwo.setSize(Level::level.getCellSize() * 2);
-	playerTwo.setPosition(gameSettings.WINDOW_WIDTH / 2 + 500, gameSettings.WINDOW_HEIGHT / 2);
+	players[1].characterType = "Player";
+	players[1].setID(playerName);
+	players[1].setSize(Level::level.getCellSize() * 2);
+	players[1].setPosition(gameSettings.WINDOW_WIDTH / 2 + 500, gameSettings.WINDOW_HEIGHT / 2);
 
 	//
 
-	UI.toolbar.createToolbar(playerOne, gameSettings);
+	//UI.toolbar.createToolbar(playerOne, gameSettings);
 
-	playerOne.inventory.setCapacity(56);
+	//playerOne.inventory.setCapacity(56);
 
 	// Add starting items
 	Item fishingPole;
 	fishingPole.type.Resource = Item::ItemType::isFISHINGROD;
-	playerOne.inventory.add(fishingPole);
-	playerTwo.inventory.add(fishingPole);
+	players[0].inventory.add(fishingPole);
+	players[0].inventory.add(fishingPole);
 
 
 	playerOne.InventoryPanel.setX(gameSettings.WINDOW_WIDTH / 2 + gameSettings.WINDOW_WIDTH / 4);
@@ -152,12 +152,9 @@ Menu:
 	/////////////////////////////////////////////// MAIN LOOP ///////////////////////////////////////
 	while (gameSettings.running)
 	{
-		
-		playerOne.setSize(Level::level.getCellSize());
 		Level::level.setCellsInWindowSize(gameSettings.WINDOW_WIDTH / Level::level.getCellSize(), gameSettings.WINDOW_HEIGHT / Level::level.getCellSize());
 		// Get mouse Position
 		SDL_GetMouseState(&mouseX, &mouseY);
-		//gameSettings.getScreenResolution();
 
 		
 		if (gameSettings.displayFPS)

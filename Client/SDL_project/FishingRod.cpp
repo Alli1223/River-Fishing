@@ -37,7 +37,7 @@ void FishingRod::CastLine()
 	}
 
 	// reel in the bobber
-	if (waitingForFish && rotation > -maxRotate / 2 && rotation < maxRotate / 2)
+	if (waitingForFish && rotation > -maxRotate / 2 && rotation < maxRotate / 2 && bobber.isBobbing)
 	{
 		float lerp_x = bobber.getX() + (getX() - bobber.getX()) * 0.005f;
 		float lerp_y = bobber.getY() + (getY() - bobber.getY()) * 0.005f;
@@ -157,7 +157,7 @@ void FishingRod::render(SDL_Renderer* renderer)
 		//Update the rod
 		UpdateRod();
 		//Draw the fishing line
-		if (casting)
+		if (casting && bobber.isBobbing)
 			SDL_RenderDrawLine(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY(), bobber.getX() - Camera::camera.getX(), bobber.getY() - Camera::camera.getY());
 
 		// Render casting bar

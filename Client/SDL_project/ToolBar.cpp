@@ -62,7 +62,7 @@ void ToolBar::useItem()
 
 }
 
-void ToolBar::createToolbar(Player& playerOne, GameSettings& gameSettings)
+void ToolBar::createToolbar(std::vector<Player> players, GameSettings& gameSettings)
 {
 	int WW = gameSettings.WINDOW_WIDTH;
 	int WH = gameSettings.WINDOW_HEIGHT;

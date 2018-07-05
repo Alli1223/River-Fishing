@@ -22,7 +22,7 @@ std::shared_ptr<Button> get_instance(Button& n)
 }
 
 
-void Menu::MainMenu(GameSettings& gameSettings, Level& level, Camera& camera, Player& playerOne, SDL_Renderer* renderer)
+void Menu::MainMenu(GameSettings& gameSettings, Level& level, Camera& camera, std::vector<Player> players, SDL_Renderer* renderer)
 {
 	// Create buttons
 	Button characterScreen("Character Customisation");
@@ -35,7 +35,7 @@ void Menu::MainMenu(GameSettings& gameSettings, Level& level, Camera& camera, Pl
 
 	// Scale mouse correctly depending on resolution
 	menuCursorSize = gameSettings.WINDOW_WIDTH / 25;
-	bodyColourSlider.setColour(playerOne.getBodyColour());
+	bodyColourSlider.setColour(players[0].getBodyColour());
 	gameSettings.gotoMainMenu = false;
 	gameSettings.inGameMenu = false;
 	// Display the menu screen
@@ -108,7 +108,7 @@ void Menu::MainMenu(GameSettings& gameSettings, Level& level, Camera& camera, Pl
 	}
 }
 
-void Menu::CharacterCustomisationMenu(GameSettings& gameSettings, Camera& camera, Player& playerOne, SDL_Renderer* renderer, Level& level)
+void Menu::CharacterCustomisationMenu(GameSettings& gameSettings, Camera& camera, std::vector<Player> players, SDL_Renderer* renderer, Level& level)
 {
 	Button back("Back");
 	Button singlePlayer("Start");

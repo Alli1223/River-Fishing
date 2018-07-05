@@ -48,10 +48,9 @@ public:
 	ProceduralTerrain terrainGen;
 	Camera camera;
 	UserInput input;
-	Player playerOne;
-	Player playerTwo;
 	GameUI UI;
 	AIManager AImanager;
+	std::vector<Player> players;
 	
 
 	//The music that will be played
