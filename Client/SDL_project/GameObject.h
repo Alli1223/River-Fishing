@@ -40,6 +40,8 @@ public:
 	Texture setTexture(Texture texture) { return objectTexture = texture; }
 	Texture getTexture() { return objectTexture; }
 
+	bool collidesWith(GameObject object);
+
 protected:
 	//! Position of the object
 	glm::vec2 position;

@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Camera.h"
 //! Loads and renders images in the window
 /*!
 This class is used for all the images in the game. It loads textures from a given file location 
@@ -56,7 +56,7 @@ public:
 	//! Set Atlas tile width number
 	int setTileWidth(int width) { return atlasTileWidth = width; }
 
-	SDL_Rect& getRect() { return dstrect; }
+	SDL_Rect& getRect();
 
 	int index = 0;
 private:

@@ -6,6 +6,7 @@ public:
 	Bobber();
 	~Bobber();
 
+	bool isBobbing = false;
 	void render(SDL_Renderer* renderer);
 	Texture BobberTexture;
 }; 

@@ -91,7 +91,7 @@ Menu:
 
 	player.characterType = "Player";
 	player.setID(playerName);
-	player.setSize(Level::level.getCellSize());
+	player.setSize(Level::level.getCellSize() * 2);
 	player.setPosition(1000, 1000);
 
 	UI.toolbar.createToolbar(player, gameSettings);

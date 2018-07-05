@@ -186,6 +186,8 @@ void Player::RenderPlayer(SDL_Renderer* renderer, Camera& camera)
 	fishingRod.setPosition(getPosition());
 	fishingRod.setSize(100, 100);
 	fishingRod.render(renderer);
+	if (isPlayerMoving())
+		fishingRod.Stop();
 }
 
 void Player::renderCharacterBody(SDL_Renderer* renderer, int frameX, int frameY, int x, int y, int pixelSize, int characterSize, bool flipSprite)

@@ -59,13 +59,20 @@ void Texture::renderRotation(SDL_Renderer* renderer, int x, int y, int width, in
 		}
 	}
 
-	SDL_Rect dest;
-	dest.x = x - width / 2;
-	dest.y = y - height / 2;
-	dest.w = width;
-	dest.h = height;
 
-	SDL_RenderCopyEx(renderer, texture, nullptr, &dest, angle, 0, SDL_FLIP_NONE);
+	dstrect.x = x - width / 2;
+	dstrect.y = y - height / 2;
+	dstrect.w = width;
+	dstrect.h = height;
+
+	SDL_RenderCopyEx(renderer, texture, nullptr, &dstrect, angle, 0, SDL_FLIP_NONE);
+}
+
+SDL_Rect& Texture::getRect()
+{
+	dstrect.x - Camera::camera.getX();
+	dstrect.y - Camera::camera.getY();
+	return dstrect;
 }
 void Texture::renderRotation(SDL_Renderer* renderer, int x, int y, int width, int height, int angle, bool verticalflip)
 {
@@ -79,16 +86,16 @@ void Texture::renderRotation(SDL_Renderer* renderer, int x, int y, int width, in
 		}
 	}
 
-	SDL_Rect dest;
-	dest.x = x - width / 2;
-	dest.y = y - height / 2;
-	dest.w = width;
-	dest.h = height;
+
+	dstrect.x = x - width / 2;
+	dstrect.y = y - height / 2;
+	dstrect.w = width;
+	dstrect.h = height;
 
 	if(verticalflip)
-		SDL_RenderCopyEx(renderer, texture, nullptr, &dest, angle, 0, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, texture, nullptr, &dstrect, angle, 0, SDL_FLIP_NONE);
 	else
-		SDL_RenderCopyEx(renderer, texture, nullptr, &dest, angle, 0, SDL_FLIP_HORIZONTAL);
+		SDL_RenderCopyEx(renderer, texture, nullptr, &dstrect, angle, 0, SDL_FLIP_HORIZONTAL);
 }
 void Texture::renderAnim(SDL_Renderer* renderer, int sourceX, int sourceY, int destX, int destY, int pixelSize, int renderSize)
 {

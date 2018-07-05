@@ -17,10 +17,13 @@ public:
 
 	void CastLine();
 	void SpawnBobber();
+	void Stop();
 	void UpdateRod();
 	void render(SDL_Renderer * renderer);
 	bool startCast = false;
 	bool casting = false;
+	bool waitingForFish = false;
+	bool renderFishingRod = true;
 
 	int setPlayerRotation(int newRotation) { return playerRotation = newRotation; }
 
@@ -28,6 +31,7 @@ private:
 	//! Used for flipping the fishing rod
 	bool castLeftOrRight;
 	int playerRotation;
+	
 
 	int castingSpeed = 7;
 

@@ -312,6 +312,13 @@ void UserInput::HandleUserInput(SDL_Renderer* renderer, Level& level, Player& pl
 			
 		}
 	}
+
+	player.fishingRod.renderFishingRod = false;
+	//Toolbar hover
+	if (toolbar.getSelectedItem().type.Resource == Item::ItemType::isFISHINGROD)
+	{
+		player.fishingRod.renderFishingRod = true;
+	}
 	
 }
 

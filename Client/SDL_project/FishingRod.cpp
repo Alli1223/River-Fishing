@@ -21,7 +21,7 @@ void FishingRod::CastLine()
 	startCast = true;
 
 	// If the player hsa started the cast then rotate
-	if (playerRotation == maxRotate)
+	if (playerRotation == 90)
 	{
 		if (rotation < maxRotate)
 			rotation++;
@@ -33,29 +33,60 @@ void FishingRod::CastLine()
 			rotation--;
 		}
 	}
+
+	if (waitingForFish)
+	{
+		float lerp_x = bobber.getX() + (getX() - bobber.getX()) * 0.005f;
+		float lerp_y = bobber.getY() + (getY() - bobber.getY()) * 0.005f;
+
+		bobber.setX(lerp_x);
+		bobber.setY(lerp_y);
+		
+	}
 }
 
 void FishingRod::SpawnBobber()
 {
-	int cellSize = Level::level.getCellSize();
-	// Left
-	if(rotation == 90)
-		if (Level::level.tiles[getX() / cellSize - castingDistance][getY() / cellSize]->isWater)
-		{
-			bobber.setPosition((getX() / cellSize - castingDistance) * cellSize, getY());
-			bobber.setSize(25);
-		}
+	// Create the bobber if we don't already have a line
+	if (!waitingForFish)
+	{
+		int cellSize = Level::level.getCellSize();
+		// Left
+		if (rotation == 90)
+			if (Level::level.tiles[getX() / cellSize - castingDistance][getY() / cellSize]->isWater)
+			{
+				bobber.setPosition((getX() / cellSize - castingDistance) * cellSize, getY() + (rand() % 50) + 25);
+			}
 
-	// Right
-	if (rotation == 270)
-		if (Level::level.tiles[getX() / cellSize + castingDistance][getY() / cellSize]->isWater)
-		{
+		// Right
+		if (rotation == 270)
+			if (Level::level.tiles[getX() / cellSize + castingDistance][getY() / cellSize]->isWater)
+			{
+				bobber.setPosition((getX() / cellSize - castingDistance) * cellSize, getY() + (rand() % 50) + 25);
+			}
+		// We are now waiting for the fish
+		waitingForFish = true;
+		bobber.isBobbing = true;
+	}
+}
 
-		}
+void FishingRod::Stop()
+{
+	startCast = false;
+	casting = false;
+	waitingForFish = false;
+	bobber.isBobbing = false;
+	bobber.setPosition(0, 0);
+
 }
 
 void FishingRod::UpdateRod()
 {
+	if (this->collidesWith(bobber))
+	{
+		std::cout << "COLLISION!" << std::endl;
+		Stop();
+	}
 	// Cast to the left
 	if (playerRotation == 90)
 	{
@@ -109,16 +140,20 @@ void FishingRod::UpdateRod()
 
 void FishingRod::render(SDL_Renderer* renderer)
 {
-	UpdateRod();
-	
-	
-	// Render casting bar
-	castingBar.render(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY() - 50, castingLevel, 10);
+	if (renderFishingRod)
+	{
+		UpdateRod();
+		if (casting)
+			SDL_RenderDrawLine(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY(), bobber.getX() - Camera::camera.getX(), bobber.getY() - Camera::camera.getY());
 
-	// Render fishingrod
-	fishingRodTexture.renderRotation(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY(), this->getWidth(), this->getHeight(), rotation, castLeftOrRight);
+		// Render casting bar
+		castingBar.render(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY() - 50, castingLevel, 10);
 
-	bobber.render(renderer);
+		// Render fishingrod
+		fishingRodTexture.renderRotation(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY(), this->getWidth(), this->getHeight(), rotation, castLeftOrRight);
 
-	startCast = false;
+		bobber.render(renderer);
+
+		startCast = false;
+	}
 }

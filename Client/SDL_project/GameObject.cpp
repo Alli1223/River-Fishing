@@ -38,3 +38,35 @@ void GameObject::render(SDL_Renderer* renderer)
 		break;
 	}
 }
+
+bool GameObject::collidesWith(GameObject object)
+{
+	int top1, top2, left1, left2, right1, right2, bottom1, bottom2;
+
+	// This object
+	top1 = this->getY() - (this->getHeight() / 2);
+	left1 = this->getX() - (this->getWidth() / 2);
+	right1 = this->getX() + (this->getWidth() / 2);
+	bottom1 = this->getY() + (this->getHeight() / 2);
+
+
+	// That object
+	top2 = object.getY() - (object.getHeight() / 2);
+	left2 = object.getX() - (object.getWidth() / 2);
+	right2 = object.getX() + (object.getWidth() / 2);
+	bottom2 = object.getY() + (object.getHeight() / 2);
+
+
+		return !(left2 > right1 ||
+			right2 < left1 ||
+			top2 > bottom1 ||
+			bottom2 <top1);
+
+	if (SDL_HasIntersection(&this->getTexture().getRect(), &object.getTexture().getRect()) == SDL_TRUE)
+	{
+		return true;
+	}
+	else
+		return false;
+
+}
