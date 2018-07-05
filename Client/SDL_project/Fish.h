@@ -8,7 +8,7 @@ public:
 
 	~Fish();
 
-	void render();
+	
 
 	enum FishType
 	{
@@ -18,8 +18,13 @@ public:
 		three,
 		four
 	} fishType;
-	Texture fishTexture;
 
+	Texture fishTexture;
+	Texture fishTwoTexture;
+	Texture fishThreeTexture;
+
+	bool isSwimming = false;
+	void render(SDL_Renderer * renderer);
 private:
 	
 };

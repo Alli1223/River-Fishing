@@ -21,13 +21,14 @@ AIManager::~AIManager()
 void AIManager::Update(SDL_Renderer* renderer, Camera& camera, Player& player)
 {
 	// Spawn fish
-	if (fishSpawnTimer.getTicks() > 500 && fishCounter < AllGameObjects.size())
+	if (fishSpawnTimer.getTicks() > fishSpawnRate && fishCounter < allFish.size())
 	{
 		fishSpawnTimer.restart();
-		AllGameObjects[fishCounter].setPosition(((Level::level.cellsInWindow.x - 5) / 2) * Level::level.getCellSize() + rand() % 300, -10);
+		allFish[fishCounter].setPosition(((Level::level.cellsInWindow.x - 5) / 2) * Level::level.getCellSize() + rand() % 300, -10);
+		allFish[fishCounter].isSwimming = true;
 		fishCounter++;
 	}
-	for (auto &fish : AllGameObjects)
+	for (auto &fish : allFish)
 	{
 		if (fish.getY() > Level::level.tiles[0].size() * Level::level.getCellSize())
 		{
@@ -35,9 +36,11 @@ void AIManager::Update(SDL_Renderer* renderer, Camera& camera, Player& player)
 		}
 		if (fish.collidesWith(player.fishingRod.bobber))
 		{
+			fish.move(player.fishingRod.bobber.getPosition());
 			std::cout << "Collision with fish" << std::endl;
 		}
 		fish.setY(fish.getY() + fish.getSpeed());
+		
 		fish.render(renderer);
 	}
 	
@@ -53,7 +56,7 @@ void AIManager::CreateFish()
 	size += 25;
 	fish.setSize(size, size);
 	//fish.setPosition(((Level::level.cellsInWindow.x - 5) / 2) * Level::level.getCellSize(), -10);
-	AllGameObjects.push_back(fish);
+	allFish.push_back(fish);
 	
 }
 void AIManager::CreateNPC()

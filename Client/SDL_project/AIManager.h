@@ -23,8 +23,8 @@ private:
 	int fishCounter = 0;
 
 	//! Fish spawn rate in ms
-	int fishSpawnRate = 1500;
+	int fishSpawnRate = 3000;
 
-	std::vector<GameObject> AllGameObjects;
+	std::vector<Fish> allFish;
 };
 

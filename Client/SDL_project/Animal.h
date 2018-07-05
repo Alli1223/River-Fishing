@@ -14,6 +14,7 @@ public:
 	Pathfinder pathfinder;
 	// Path of the animal
 	std::vector<Point> Path;
+	void render(SDL_Renderer * renderer);
 
 };
 
