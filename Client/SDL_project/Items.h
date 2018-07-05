@@ -7,6 +7,7 @@ class Item : public GameObject
 public:
 	//! Constructor
 	Item();
+	
 	//! Overloaded Constructor
 	
 	//! Destructor
@@ -27,7 +28,9 @@ public:
 			isWOODFENCE,
 			noFood,
 			isBERRY,
-			isFISH,
+			isFishOne,
+			isFishTwo,
+			isFishThree,
 			isSEEDS,
 			isWHEAT,
 			noTool,

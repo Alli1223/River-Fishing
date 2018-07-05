@@ -19,23 +19,32 @@ Fish::~Fish()
 
 void Fish::render(SDL_Renderer* renderer)
 {
+	// Set the transparency of the fish
 	fishTexture.alterTransparency(transparency);
 	fishTwoTexture.alterTransparency(transparency);
 	fishThreeTexture.alterTransparency(transparency);
 
+	
 	switch (fishType)
 	{
 	default:
-		fishTexture.render(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY(), this->getWidth(), this->getHeight());
+		fishTexture.renderRotation(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY(), this->getWidth(), this->getHeight(), rotation);
 		break;
 	case Fish::FishType::one:
-		fishTexture.render(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY(), this->getWidth(), this->getHeight());
+		fishTexture.renderRotation(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY(), this->getWidth(), this->getHeight(), rotation);
 		break;
 	case Fish::FishType::two:
-		fishTwoTexture.render(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY(), this->getWidth(), this->getHeight());
+		fishTwoTexture.renderRotation(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY(), this->getWidth(), this->getHeight(), rotation);
 		break;
 	case Fish::FishType::three:
-		fishThreeTexture.render(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY(), this->getWidth(), this->getHeight());
+		fishThreeTexture.renderRotation(renderer, this->getX() - Camera::camera.getX(), this->getY() - Camera::camera.getY(), this->getWidth(), this->getHeight(), rotation);
 		break;
 	}
+	// update pathfinder movement
+	if (pathfinder.path.size() > 0)
+		FindPath(pathfinder.currentGoal);
+
+	// Update linear movement
+	if (movingToDest)
+		MoveTowards(currentGoal);
 }

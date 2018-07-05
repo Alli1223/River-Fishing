@@ -4,7 +4,6 @@
 
 Bobber::Bobber() : BobberTexture(ResourceManager::fishTextureLocation + "bobber.png")
 {
-	
 	objectTexture.alterTransparency(150);
 	objectTexture = BobberTexture;
 	objectTexture.atlasType = Texture::TextureType::Sprite;

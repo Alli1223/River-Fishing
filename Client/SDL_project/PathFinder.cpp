@@ -114,7 +114,7 @@ std::vector<Point> Pathfinder::findPath(Level& level, glm::ivec2& startPoint, gl
 	nodes.clear();
 	Point start = Point(startPoint.x / Level::level.getCellSize(), startPoint.y / Level::level.getCellSize());
 	Point goal = Point(goalPoint.x / Level::level.getCellSize(), goalPoint.y / Level::level.getCellSize());
-
+	currentGoal.x = goal.getX(), currentGoal.y = goal.getY();
 	std::cout << "Computing Path" << std::endl;
 	
 	// IF the start and end are accessable

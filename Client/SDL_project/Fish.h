@@ -24,6 +24,7 @@ public:
 	Texture fishThreeTexture;
 
 	bool isSwimming = false;
+	bool isHooked = false;
 	void render(SDL_Renderer * renderer);
 private:
 	

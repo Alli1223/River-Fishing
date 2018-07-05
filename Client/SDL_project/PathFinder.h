@@ -81,6 +81,7 @@ public:
 	std::vector<Point> reconstructPath(std::shared_ptr<Node> goalNode);
 	void Pathfinder::drawPath(std::vector<Point>& path, SDL_Renderer* renderer, Camera& camera, Level& level);
 	std::vector<Point> path;
+	glm::ivec2 currentGoal;
 private:
 	//! A vector of nodes that is within the level that can be searched
 	std::vector<std::vector<std::shared_ptr<Node>>> nodes;

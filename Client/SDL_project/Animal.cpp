@@ -11,11 +11,53 @@ Animal::~Animal()
 {
 }
 
-void Animal::move(glm::ivec2 move)
+void Animal::MoveTowards(glm::vec2 goal)
+{
+	if (currentGoal != goal)
+	{
+		movingToDest = true;
+		currentGoal = goal;
+	}
+		
+	
+	float deltaX = getX() - currentGoal.x;
+	float deltaY = getY() - currentGoal.y;
+	
+	// calculate length (pythagoras)
+	float length = sqrt(deltaX * deltaX + deltaY * deltaY);
+
+	// Normalize 
+	deltaX /= length;
+	deltaY /= length;
+
+	// Multiply direction by magnitude 
+	deltaX *= getSpeed();
+	deltaY *= getSpeed();
+
+	// Calculate rotation
+	if (rotateTowardsDest)
+	{
+		float angleInDegrees = atan2(deltaY, deltaX) * 180.0 / PI;
+
+		// Apply correction to rotation
+		rotation = angleInDegrees + 90;
+	}
+
+	// Check bounds
+	if (getX() - deltaX > 0 && getY() - deltaY > 0)
+	{
+		setX(getX() - deltaX);
+		setY(getY() - deltaY);
+	}
+	if ((int)getX() == (int)currentGoal.x && (int)getY() == (int)currentGoal.y)
+		movingToDest = false;
+}
+
+void Animal::FindPath(glm::ivec2 goal)
 {
 	// If no path, then create it
 	if (pathfinder.path.size() == 0)
-		pathfinder.findPath(Level::level, (glm::ivec2)this->getPosition(), (glm::ivec2)this->getPosition());
+		pathfinder.findPath(Level::level, (glm::ivec2)this->getPosition(), goal);
 	else
 	{
 		// If path has been created
@@ -34,7 +76,7 @@ void Animal::move(glm::ivec2 move)
 		deltaX *= getSpeed();
 		deltaY *= getSpeed();
 
-		// Move
+		// Check bounds
 		if (getX() - deltaX > 0 && getY() - deltaY > 0)
 		{
 			setX(getX() - deltaX);
@@ -49,7 +91,9 @@ void Animal::move(glm::ivec2 move)
 		}
 		// When the object reaches the point in the path
 		// Then iterate
-		if (getX() / Level::level.getCellSize() == pathfinder.path[pathPointIterator].getX() && getY() / Level::level.getCellSize() == pathfinder.path[pathPointIterator].getY())
+		int x, y;
+		x = (int)getX(), y = (int)getY();
+		if ((int)getX() / Level::level.getCellSize() == pathfinder.path[pathPointIterator].getX() && (int)getY() / Level::level.getCellSize() == pathfinder.path[pathPointIterator].getY())
 			pathPointIterator++;
 
 		
@@ -60,5 +104,6 @@ void Animal::move(glm::ivec2 move)
 
 void Animal::render(SDL_Renderer * renderer)
 {
-
+	if(pathfinder.path.size() > 0)
+		FindPath(pathfinder.currentGoal);
 }

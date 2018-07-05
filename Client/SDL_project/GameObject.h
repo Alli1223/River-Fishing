@@ -29,6 +29,9 @@ public:
 	float getSpeed() { return speed; }
 	float setSpeed(float newSpeed) { speed = newSpeed; }
 
+	float getRotation() { return rotation; }
+	float setRotation(float newRotation) { return rotation = newRotation; }
+
 	//! Render the object
 	void render(SDL_Renderer* renderer);
 

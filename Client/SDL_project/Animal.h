@@ -8,12 +8,16 @@ public:
 	Animal();
 	~Animal();
 
-	void move(glm::ivec2 goal);
-
+	void FindPath(glm::ivec2 goal);
+	void MoveTowards(glm::vec2 goal);
 	//! Pathfinder for the animal
 	Pathfinder pathfinder;
 	int pathPointIterator;
 	void render(SDL_Renderer * renderer);
+protected:
+	bool movingToDest = false;
+	bool rotateTowardsDest = true;
+	glm::vec2 currentGoal;
 
 };
 

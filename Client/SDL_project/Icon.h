@@ -39,7 +39,12 @@ private:
 	Texture StoneTexture;
 	Texture WoodFenceTexture;
 	Texture StoneFenceTexture;
-	
+
+	Texture fishOneTexture;
+	Texture fishTwoTexture;
+	Texture fishThreeTexture;
+
+
 	Texture IconBackgroundTexture;
 
 	int iconID;

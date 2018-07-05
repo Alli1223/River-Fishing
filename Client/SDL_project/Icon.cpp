@@ -6,7 +6,9 @@ Icon::Icon() : WoodAxeTexture(iconTextureLocation + "axe.png"), PickAxeTexture(i
 FishingRodTexture(iconTextureLocation + "fishingPole.png"), WateringCanTexture(iconTextureLocation + "wateringCan.png"),
 WoodTexture(iconTextureLocation + "wood.png"), StoneTexture(iconTextureLocation + "stone.png"), IconBackgroundTexture(iconTextureLocation + "IconBackground.png"),
 WoodFenceTexture(iconTextureLocation + "FenceWood.png"), StoneFenceTexture(iconTextureLocation + "FenceStone.png"),
-itemsAtlas(SpriteSheets + "spritesheet_items.png")
+itemsAtlas(SpriteSheets + "spritesheet_items.png"),
+
+fishOneTexture(ResourceManager::fishTextureLocation + "fish1.png"), fishTwoTexture(ResourceManager::fishTextureLocation + "fish2.png"), fishThreeTexture(ResourceManager::fishTextureLocation + "fish3.png")
 {
 }
 
@@ -43,18 +45,24 @@ void Icon::RenderIcon(SDL_Renderer* renderer)
 	case Item::ItemType::isWATERINGCAN:
 		WateringCanTexture.render(renderer, getX(), getY(), getWidth(), getHeight());
 		break;
-	}
-	switch (iconItem.type.Resource)
-	{
+
 	case Item::ItemType::isSEEDS:
 		seedsTexture.render(renderer, getX(), getY(), getWidth(), getHeight());
 		break;
 	case Item::ItemType::isWHEAT:
 		WheatTexture.render(renderer, getX(), getY(), getWidth(), getHeight());
 		break;
-	}
-	switch (iconItem.type.Resource)
-	{
+	case Item::ItemType::isFishOne:
+		fishOneTexture.render(renderer, getX(), getY(), getWidth(), getHeight());
+		break;
+	case Item::ItemType::isFishTwo:
+		fishTwoTexture.render(renderer, getX(), getY(), getWidth(), getHeight());
+		break;
+	case Item::ItemType::isFishThree:
+		fishThreeTexture.render(renderer, getX(), getY(), getWidth(), getHeight());
+		break;
+
+
 	case Item::ItemType::noResource:
 		
 		break;
