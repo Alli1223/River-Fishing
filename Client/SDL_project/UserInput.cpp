@@ -14,7 +14,7 @@ UserInput::~UserInput()
 
 
 
-void UserInput::HandleUserInput(SDL_Renderer* renderer, Level& level, Player& playerOne, Camera& camera, GameSettings& gameSettings, ToolBar& toolbar, GameUI& UI)
+void UserInput::HandleUserInput(SDL_Renderer* renderer, Level& level, Player& player, Camera& camera, GameSettings& gameSettings, ToolBar& toolbar, GameUI& UI)
 {
 	int cellSize = level.getCellSize();
 	//SDL_JoystickEventState(SDL_ENABLE);
@@ -52,17 +52,17 @@ void UserInput::HandleUserInput(SDL_Renderer* renderer, Level& level, Player& pl
 			if (ev.jaxis.axis == 0)
 			{
 				if (ev.jaxis.value < 0)
-					playerOne.setX(playerOne.getX() - playerOne.getSpeed());
+					player.setX(player.getX() - player.getSpeed());
 				else if (ev.jaxis.value > 0)
-					playerOne.setX(playerOne.getX() + playerOne.getSpeed());
+					player.setX(player.getX() + player.getSpeed());
 			}
 
 			else if (ev.jaxis.axis == 1)
 			{
 				if (ev.jaxis.value < 0)
-					playerOne.setY(playerOne.getY() - playerOne.getSpeed());
+					player.setY(player.getY() - player.getSpeed());
 				else if (ev.jaxis.value > 0)
-					playerOne.setY(playerOne.getY() + playerOne.getSpeed());
+					player.setY(player.getY() + player.getSpeed());
 			}
 			break;
 		}
@@ -83,78 +83,78 @@ void UserInput::HandleUserInput(SDL_Renderer* renderer, Level& level, Player& pl
 		
 	// Set the players speed
 	float deltaTime = gameSettings.deltaTime;
-	playerOne.setVelocity(playerOne.getSpeed() * deltaTime);
+	player.setVelocity(player.getSpeed() * deltaTime);
 
-	playerChunkPos = playerOne.chunkPos;
-	playercellPos = playerOne.cellPos;
+	playerChunkPos = player.chunkPos;
+	playercellPos = player.cellPos;
 	/////////// PLAYER MOVEMENT ////////////
 	//Diagonal movement
 	if (state[SDL_SCANCODE_W] && state[SDL_SCANCODE_D])
 	{
 		//player.setTargetRotation(225);
-		playerOne.setTargetRotation(270);
-		playerOne.setPlayerMoving(true);
+		player.setTargetRotation(270);
+		player.setPlayerMoving(true);
 
-		playerOne.Move(level, Player::movementDirection::right_up);
+		player.Move(level, Player::movementDirection::right_up);
 	}
 	else if (state[SDL_SCANCODE_W] && state[SDL_SCANCODE_A])
 	{
 		//player.setTargetRotation(135);
-		playerOne.setTargetRotation(90);
-		playerOne.setPlayerMoving(true);
+		player.setTargetRotation(90);
+		player.setPlayerMoving(true);
 
-		playerOne.Move(level, Player::movementDirection::left_up);
+		player.Move(level, Player::movementDirection::left_up);
 		
 	}
 	else if (state[SDL_SCANCODE_S] && state[SDL_SCANCODE_D])
 	{
-		playerOne.setPlayerMoving(true);
+		player.setPlayerMoving(true);
 		//player.setTargetRotation(-45);
-		playerOne.setTargetRotation(270);
+		player.setTargetRotation(270);
 
-		playerOne.Move(level, Player::movementDirection::right_down);
+		player.Move(level, Player::movementDirection::right_down);
 	}
 	else if (state[SDL_SCANCODE_S] && state[SDL_SCANCODE_A])
 	{
-		playerOne.setPlayerMoving(true);
+		player.setPlayerMoving(true);
 		//player.setTargetRotation(45);
-		playerOne.setTargetRotation(90);
+		player.setTargetRotation(90);
 
-		playerOne.Move(level, Player::movementDirection::left_down);
+		player.Move(level, Player::movementDirection::left_down);
 	}
 	// Player Movement
 	else if (state[SDL_SCANCODE_S])
 	{
-		playerOne.setPlayerMoving(true);
-		playerOne.setTargetRotation(0);
+		player.setPlayerMoving(true);
+		player.setTargetRotation(0);
 
-		playerOne.Move(level, Player::movementDirection::down);
+		player.Move(level, Player::movementDirection::down);
 	}
 	else if (state[SDL_SCANCODE_A])
 	{
-		playerOne.setPlayerMoving(true);
-		playerOne.setTargetRotation(90);
+		player.setPlayerMoving(true);
+		player.setTargetRotation(90);
 
-		playerOne.Move(level, Player::movementDirection::left);
+		player.Move(level, Player::movementDirection::left);
 
 	}
 	else if (state[SDL_SCANCODE_D])
 	{
-		playerOne.setPlayerMoving(true);
-		playerOne.setTargetRotation(270);
-		playerOne.Move(level, Player::movementDirection::right);
+		player.setPlayerMoving(true);
+		player.setTargetRotation(270);
+		player.Move(level, Player::movementDirection::right);
 	}
 	else if (state[SDL_SCANCODE_W])
 	{
-		playerOne.setPlayerMoving(true);
-		playerOne.setTargetRotation(180);
+		player.setPlayerMoving(true);
+		player.setTargetRotation(180);
 
-		playerOne.Move(level, Player::movementDirection::up);
+		player.Move(level, Player::movementDirection::up);
 	}
 	else
 	{
 		//player.setSpeed(0);
-		playerOne.setPlayerMoving(false);
+		player.setPlayerMoving(false);
 		//player.setTargetRotation(0);
 	}
 
@@ -191,7 +191,7 @@ void UserInput::HandleUserInput(SDL_Renderer* renderer, Level& level, Player& pl
 	{
 		Item fence;
 		fence.type.Resource = Item::ItemType::isWOODFENCE;
-		playerOne.inventory.add(fence);
+		player.inventory.add(fence);
 		
 	}
 	
@@ -201,7 +201,7 @@ void UserInput::HandleUserInput(SDL_Renderer* renderer, Level& level, Player& pl
 	}
 	if (state[SDL_SCANCODE_UP])
 	{
-		playerOne.setSpeed(playerOne.getSpeed() + 1.0);
+		player.setSpeed(player.getSpeed() + 1.0);
 	}
 
 	// Set cell size
@@ -229,7 +229,7 @@ void UserInput::HandleUserInput(SDL_Renderer* renderer, Level& level, Player& pl
 	}
 
 	// Update rod
-	playerOne.fishingRod.setPlayerRotation(playerOne.getTargetRotation());
+	player.fishingRod.setPlayerRotation(player.getTargetRotation());
 
 
 
@@ -237,7 +237,7 @@ void UserInput::HandleUserInput(SDL_Renderer* renderer, Level& level, Player& pl
 	//LEFT CLICK
 	if (SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
-		UseItemFromToolbar(renderer, toolbar, playerOne, gameSettings);
+		UseItemFromToolbar(renderer, toolbar, player, gameSettings);
 	}
 
 	// RIGHT CLICK
@@ -272,18 +272,18 @@ void UserInput::HandleUserInput(SDL_Renderer* renderer, Level& level, Player& pl
 			if (inventoryTimer.getTicks() > inventoryTimeout)
 			{
 				// Close panel
-				if (playerOne.InventoryPanel.getDispalayInventory())
+				if (player.InventoryPanel.getDispalayInventory())
 				{
 					gameSettings.displayMouse = false;
-					playerOne.InventoryPanel.setDisplayInventory(false);
-					playerOne.InventoryPanel.getInventoryIcons().erase(playerOne.InventoryPanel.getInventoryIcons().begin(), playerOne.InventoryPanel.getInventoryIcons().end());
+					player.InventoryPanel.setDisplayInventory(false);
+					player.InventoryPanel.getInventoryIcons().erase(player.InventoryPanel.getInventoryIcons().begin(), player.InventoryPanel.getInventoryIcons().end());
 				}
 				//Open Panel
 				else
 				{
 					gameSettings.displayMouse = true;
-					playerOne.InventoryPanel.CreateInventory(renderer, playerOne.inventory);
-					playerOne.InventoryPanel.setDisplayInventory(true);
+					player.InventoryPanel.CreateInventory(renderer, player.inventory);
+					player.InventoryPanel.setDisplayInventory(true);
 				}
 		
 			}
@@ -298,26 +298,26 @@ void UserInput::HandleUserInput(SDL_Renderer* renderer, Level& level, Player& pl
 		{
 			if (craftingTimer.getTicks() > craftingTimeout)
 			{
-				if (playerOne.craftingUI.getDispalayCrafting())
+				if (player.craftingUI.getDispalayCrafting())
 				{
 					gameSettings.displayMouse = false;
-					playerOne.craftingUI.setDisplayCrafting(false);
+					player.craftingUI.setDisplayCrafting(false);
 				}
 				else
 				{
 					gameSettings.displayMouse = true;
-					playerOne.craftingUI.setDisplayCrafting(true);
+					player.craftingUI.setDisplayCrafting(true);
 				}
 			}
 			
 		}
 	}
 
-	playerOne.fishingRod.renderFishingRod = false;
+	player.fishingRod.renderFishingRod = false;
 	//Toolbar hover
 	if (toolbar.getSelectedItem().type.Resource == Item::ItemType::isFISHINGROD)
 	{
-		playerOne.fishingRod.renderFishingRod = true;
+		player.fishingRod.renderFishingRod = true;
 	}
 	
 }
@@ -357,13 +357,13 @@ void UserInput::ChangeCellsAroundPoint(Level& level, glm::vec2 point, int dist, 
 }
 
 
-void UserInput::UseItemFromToolbar(SDL_Renderer* renderer, ToolBar& toolbar, Player& playerOne, GameSettings& gameSettings)
+void UserInput::UseItemFromToolbar(SDL_Renderer* renderer, ToolBar& toolbar, Player& player, GameSettings& gameSettings)
 {
 	
 	// FISHING ROD
 	if (toolbar.getSelectedItem().type.Resource == Item::ItemType::isFISHINGROD)
 	{
-		playerOne.fishingRod.CastLine();
+		player.fishingRod.CastLine();
 		
 	}
 

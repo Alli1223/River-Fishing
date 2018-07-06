@@ -48,7 +48,7 @@ public:
 	ProceduralTerrain terrainGen;
 	Camera camera;
 	UserInput input;
-	Player playerOne;
+	Player player;
 	Player playerTwo;
 	GameUI UI;
 	AIManager AImanager;

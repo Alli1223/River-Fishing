@@ -46,10 +46,10 @@ void GameSettings::CalculateFramesPerSecond()
 
 
 //TODO: Create a mapdata json file for singleplayer
-void GameSettings::savePlayerSettings(Player& playerOne)
+void GameSettings::savePlayerSettings(Player& player)
 {
 	
-	json playerData = playerOne.getPlayerJson();
+	json playerData = player.getPlayerJson();
 
 	playerSave.open(playerSavePath);
 	playerSave << playerData.dump();

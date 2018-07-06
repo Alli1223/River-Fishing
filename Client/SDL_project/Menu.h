@@ -14,10 +14,10 @@ public:
 	~Menu();
 
 	//! Run main menu loop
-	void MainMenu(GameSettings& gameSettings,Level& level, Camera& camera, Player& playerOne, SDL_Renderer* renderer);
+	void MainMenu(GameSettings& gameSettings,Level& level, Camera& camera, Player& player, SDL_Renderer* renderer);
 
 	//! Run character screen loop
-	void CharacterCustomisationMenu(GameSettings& gameSettings, Camera& camera, Player& playerOne, SDL_Renderer* renderer, Level& level);
+	void CharacterCustomisationMenu(GameSettings& gameSettings, Camera& camera, Player& player, SDL_Renderer* renderer, Level& level);
 
 	// Set mouse pointer size
 	int setCursorSize(int newCursorSize) { return menuCursorSize = newCursorSize; }
@@ -26,11 +26,11 @@ public:
 
 private:
 	//! Change body buttons
-	void changeEarType(Player& playerOne, bool increment);
-	void changeEyeType(Player& playerOne, bool increment);
-	void changeHairType(Player& playerOne, bool increment);
-	void changeTopType(Player& playerOne, bool increment);
-	void changeBottomType(Player& playerOne, bool increment);
+	void changeEarType(Player& player, bool increment);
+	void changeEyeType(Player& player, bool increment);
+	void changeHairType(Player& player, bool increment);
+	void changeTopType(Player& player, bool increment);
+	void changeBottomType(Player& player, bool increment);
 	//! To end main menu while loop
 	bool displayMainMenu = true;
 	//! To end character menu while loop

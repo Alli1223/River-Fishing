@@ -18,7 +18,7 @@ AIManager::~AIManager()
 }
 
 
-void AIManager::Update(SDL_Renderer* renderer, Camera& camera, Player& playerOne)
+void AIManager::Update(SDL_Renderer* renderer, Camera& camera, Player& player)
 {
 	// Spawn fish
 	if (fishSpawnTimer.getTicks() > fishSpawnRate && fishCounter < allFish.size())
@@ -42,33 +42,33 @@ void AIManager::Update(SDL_Renderer* renderer, Camera& camera, Player& playerOne
 		}
 
 		// If fish collides with bobber
-		if (fish.collidesWith(playerOne.fishingRod.bobber) && playerOne.fishingRod.bobber.isBobbing)
+		if (fish.collidesWith(player.fishingRod.bobber) && player.fishingRod.bobber.isBobbing)
 		{
 			// Move the fish towards the bobber
-			fish.MoveTowards(playerOne.fishingRod.bobber.getPosition());
+			fish.MoveTowards(player.fishingRod.bobber.getPosition());
 			fish.isHooked = true;
-			playerOne.fishingRod.bobber.fishHooked = true;
+			player.fishingRod.bobber.fishHooked = true;
 
 			// Add to inventory if collided with fishingpole
-			if (fish.collidesWith(playerOne.fishingRod))
+			if (fish.collidesWith(player.fishingRod))
 			{
 				if (fish.fishType == Fish::FishType::one)
 				{
 					Item fishItem;
 					fishItem.type.Resource = Item::ItemType::isFishOne;
-					playerOne.inventory.add(fishItem);
+					player.inventory.add(fishItem);
 				}
 				else if (fish.fishType == Fish::FishType::two)
 				{
 					Item fishItem;
 					fishItem.type.Resource = Item::ItemType::isFishTwo;
-					playerOne.inventory.add(fishItem);
+					player.inventory.add(fishItem);
 				}
 				else if (fish.fishType == Fish::FishType::three)
 				{
 					Item fishItem;
 					fishItem.type.Resource = Item::ItemType::isFishThree;
-					playerOne.inventory.add(fishItem);
+					player.inventory.add(fishItem);
 				}
 				// Erase that fish
 				allFish.erase(allFish.begin() + i);
@@ -96,9 +96,7 @@ void AIManager::Update(SDL_Renderer* renderer, Camera& camera, Player& playerOne
 void AIManager::CreateFish()
 {
 	Fish fish;
-	int size = rand() % 50;
-	size += 25;
-	fish.setSize(size, size);
+	fish.setSize((rand() % 25) + 10);
 	//fish.setPosition(((Level::level.cellsInWindow.x - 5) / 2) * Level::level.getCellSize(), -10);
 	allFish.push_back(fish);
 	

@@ -11,7 +11,7 @@ public:
 	~AIManager();
 
 	//! Update the games AI
-	void Update(SDL_Renderer* renderer, Camera& camera, Player& playerOne);
+	void Update(SDL_Renderer* renderer, Camera& camera, Player& player);
 
 	//! Timer start
 	Timer fishSpawnTimer;

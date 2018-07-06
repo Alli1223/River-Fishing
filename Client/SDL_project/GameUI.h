@@ -16,7 +16,7 @@ public:
 	InGameMenu gameMenu;
 
 	//Function that renders all the UI elements
-	void Render(SDL_Renderer* renderer, Player& playerOne, GameSettings& gameSettings);
+	void Render(SDL_Renderer* renderer, Player& player, GameSettings& gameSettings);
 
 };
 

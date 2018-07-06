@@ -30,7 +30,7 @@ bool ToolBar::removeToolbarItem(int index)
 		return false;
 }
 
-void ToolBar::UpdateAndRenderToolbar(SDL_Renderer* renderer, Player& playerOne, GameSettings& gameSettings)
+void ToolBar::UpdateAndRenderToolbar(SDL_Renderer* renderer, Player& player, GameSettings& gameSettings)
 {
 	selectionTexture.alterTransparency(150);
 
@@ -40,11 +40,11 @@ void ToolBar::UpdateAndRenderToolbar(SDL_Renderer* renderer, Player& playerOne, 
 
 	// IF the inventory has changed reCreate the toolbar
 	//TODO: optimise this
-	if (numOfItems != playerOne.inventory.getCurrentSize())
+	if (numOfItems != player.inventory.getCurrentSize())
 	{
 		toolbarIcons.erase(toolbarIcons.begin(), toolbarIcons.end());
-		createToolbar(playerOne, gameSettings);
-		numOfItems = playerOne.inventory.getCurrentSize();
+		createToolbar(player, gameSettings);
+		numOfItems = player.inventory.getCurrentSize();
 	}
 
 	// Toolbar selection texture
@@ -62,7 +62,7 @@ void ToolBar::useItem()
 
 }
 
-void ToolBar::createToolbar(Player& playerOne, GameSettings& gameSettings)
+void ToolBar::createToolbar(Player& player, GameSettings& gameSettings)
 {
 	int WW = gameSettings.WINDOW_WIDTH;
 	int WH = gameSettings.WINDOW_HEIGHT;
@@ -80,10 +80,10 @@ void ToolBar::createToolbar(Player& playerOne, GameSettings& gameSettings)
 		sharedIcon->setHeight(iconSize);
 		toolbarIcons.push_back(sharedIcon);
 	}
-	for (int i = 0; i < playerOne.inventory.getCurrentSize(); i++)
+	for (int i = 0; i < player.inventory.getCurrentSize(); i++)
 	{
-		if (i < toolbarIcons.size() && i >= 0 && i < playerOne.inventory.getCurrentSize())
-			toolbarIcons[i]->setIconItem(playerOne.inventory.get(i));
+		if (i < toolbarIcons.size() && i >= 0 && i < player.inventory.getCurrentSize())
+			toolbarIcons[i]->setIconItem(player.inventory.get(i));
 
 	}
 }

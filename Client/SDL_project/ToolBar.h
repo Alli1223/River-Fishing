@@ -15,7 +15,7 @@ public:
 	Item& getSelectedItem();
 	
 	//! Function that renders the toolbar
-	void ToolBar::UpdateAndRenderToolbar(SDL_Renderer* renderer, Player& playerOne, GameSettings& gameSettings);
+	void ToolBar::UpdateAndRenderToolbar(SDL_Renderer* renderer, Player& player, GameSettings& gameSettings);
 
 	void useItem();
 
@@ -24,7 +24,7 @@ public:
 	//! Remove item from toolbar
 	bool removeToolbarItem(int index);
 
-	void createToolbar(Player& playerOne, GameSettings& gameSettings);
+	void createToolbar(Player& player, GameSettings& gameSettings);
 
 	int getToolbarSelection() { return toolbarSelection; }
 	int setToolbarSelection(int newSelection) { return toolbarSelection = newSelection; }
